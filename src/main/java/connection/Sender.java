@@ -1,8 +1,10 @@
 package connection;
 
+import Utilities.ByteUtil;
+import Utilities.Constants;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +18,7 @@ public class Sender {
 	 * operations / methods on the List should be declared synchronized to ensure
 	 * maximum security regarding thread safety
 	 */
-	private static List<byte[]> messageQueue = Collections.synchronizedList(new ArrayList<>());
+	private static List<int[]> messageQueue = Collections.synchronizedList(new ArrayList<>());
 	// Thread to send messages
 	private static SenderThread senderThread;
 	// output stream
@@ -32,9 +34,9 @@ public class Sender {
 	 */
 	protected static void initializeConnection() {
 		if (senderThread == null) {
-			addMessageAtIndex(0, ConnectionConstants.POSITIVE_HANDSHAKE);
-			addMessageAtIndex(1, ConnectionConstants.LOKDATENBANK_MESSAGE);
-			addMessageAtIndex(2, ConnectionConstants.INITALIZATION_MESSAGE);
+			addMessageAtIndex(0, Constants.POSITIVE_HANDSHAKE);
+			addMessageAtIndex(1, Constants.LOKDATENBANK_MESSAGE);
+			addMessageAtIndex(2, Constants.INITALIZATION_MESSAGE);
 			senderThread = new SenderThread();
 			senderThread.start();
 		}
@@ -42,38 +44,38 @@ public class Sender {
 
 	/**
 	 * Addes a Message to messageQueue at a specific Index
-	 * 
+	 *
 	 * @param index   index to insert message
 	 * @param message message to insert
 	 */
-	private synchronized static void addMessageAtIndex(int index, byte[] message) {
+	private synchronized static void addMessageAtIndex(int index, int[] message) {
 		messageQueue.add(index, message);
 	}
 
 	/**
 	 * appends a message at the end messageQueue
-	 * 
+	 *
 	 * @param message message to add
 	 */
-	public synchronized static void addMessageQueue(byte[] message) {
+	public synchronized static void addMessageQueue(int[] message) {
 		messageQueue.add(message);
 	}
 
 	/**
 	 * Sends a message to the RMX Server
-	 * 
+	 *
 	 * @param bytes message to be send
 	 * @throws IOException if error within DataOutputStream
 	 */
-	private static void sendMessage(byte[] bytes) throws IOException {
+	private static void sendMessage(int[] bytes) throws IOException {
 		outStream = new DataOutputStream(SocketConnector.getSocket().getOutputStream());
 		// write the message
-		outStream.write(bytes);
+		outStream.write(ByteUtil.convertIntArrayToByteArray(bytes));
 	}
 
 	/**
 	 * checks if messageQueue is empty
-	 * 
+	 *
 	 * @return boolen if message queue is empty
 	 */
 	private synchronized static boolean isMessageQueueEmpty() {
@@ -82,11 +84,11 @@ public class Sender {
 
 	/**
 	 * gets the first message in messagQueue
-	 * 
+	 *
 	 * @return first message in Message queue
 	 * @throws ArrayIndexOutOfBoundsException if messageQueue is empty
 	 */
-	private synchronized static byte[] getFirstMessage() throws ArrayIndexOutOfBoundsException {
+	private synchronized static int[] getFirstMessage() throws ArrayIndexOutOfBoundsException {
 		return messageQueue.remove(0);
 	}
 
@@ -119,12 +121,11 @@ public class Sender {
 				 */
 				if (!isMessageQueueEmpty() && SocketConnector.nextRequestAllowed.get()) {
 					try {
-						byte[] message = getFirstMessage();
+						int[] message = getFirstMessage();
 						sendMessage(message);
 						// prevent sending of new message until server acknowledges last message
 						SocketConnector.nextRequestAllowed.set(false);
-						System.out.print("Gesendete Nachricht: ");
-						ComUtilities.writeMsgToConsole(message);
+						OutputUtil.writeMsgToConsole(message);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
