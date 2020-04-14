@@ -18,7 +18,7 @@ public final class Constants {
 	public static final String DE_RETRY_HEAD_RECONNECT = "Server nicht erreichbar";
 	public static final String EOF = "\n";
 	public static final String EOF_SYS = System.getProperty("line.separator", EOF);
-	public static final String DE_WRONG_MESSAGETYPE = "Nachricht nicht valide! Nachricht muss wie folgt aufgebaut sein: [Systemadresse], [Value]";
+	public static final String DE_WRONG_MESSAGETYPE = "Nachricht nicht valide! Nachricht muss wie folgt aufgebaut sein: [Systemadresse](0-111),[BitIndex](0-7),[Value](0-1)";
 	// console_menu
 	public static final String DE_MENU_NAME = "Debugger";
 	public static final String DE_SUBMENU_ITEM_1 = "Schlieﬂen";

@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.List;
 import javax.swing.*;
 
+import Utilities.ByteUtil;
 import Utilities.Constants;
 import connection.Sender;
 
@@ -106,8 +107,14 @@ public class Console extends OutputStream {
 			public void actionPerformed(ActionEvent e) {
 				// check the message for the right type
 				// SystemAdress Value
-				// [0-111] [Number]
-				if (!txtField.getText().isEmpty() && txtField.getText().matches("^([0-9]*[0-9]*[0-1]*),.[0-9]*$")) {
+				// [0-111] [0-7][Value]
+				String txtFieldTxt = txtField.getText();
+				// remove all the whitespaces
+				txtFieldTxt = txtFieldTxt.replaceAll("\\s+", "");
+				System.out.println(txtFieldTxt);
+				// if the txtfieldtest is legit, then move on
+				if (!txtFieldTxt.isEmpty() && txtFieldTxt
+						.matches("^([1-9]{1}[0-1]{1}[0-1]{1}|[1-9]{1}[0-9]{1}|[1-9]{1}),[0-7]{1},[0-1]{1}$")) {
 					// print out the text
 					System.out.println("------------------------------");
 					// switch the bus
@@ -121,14 +128,28 @@ public class Console extends OutputStream {
 					default:
 						setBus(0);
 					}
-					String[] tempArr = txtField.getText().toString().split(",");
+					String[] tempArr = txtFieldTxt.split(",");
+					// create message rmx OPCODE [busId](1-4) [systemAdress](0-111) [bitIndex](0-7)
+					// [bitValue] (0-1) format
+					int bus = getBus();
+					int systemAdress = Integer.parseInt(tempArr[0]);
+					int bitIndex = Integer.parseInt(tempArr[1]);
+					int bitValue = Integer.parseInt(tempArr[2]);
+					int calcVal = 0;
+					// calculate the actual bit value if bit is not set
+					if(!ByteUtil.bitIsSet(bitValue, bitIndex)) {
+						calcVal = ByteUtil.calcBinaryValueFromInt(bitIndex);
+					} else {
+						calcVal = ByteUtil.calcBinaryValueFromInt(bitIndex);
+					}
+					
+					int[] message = new int[] { Constants.RMX_HEAD, 6, 5, bus, systemAdress, calcVal};
 					System.out.println("Bus: " + getBus());
 					System.out.println("SystemAdress: " + tempArr[0]);
 					System.out.println("Value: " + tempArr[1]);
 					System.out.println("------------------------------");
 					// send the things to the sender
-					Sender.addMessageQueue(new int[] { Constants.RMX_HEAD, 6, 5, getBus(), Integer.parseInt(tempArr[0]),
-							Integer.parseInt(tempArr[1]) });
+					Sender.addMessageQueue(message);
 				} else {
 					System.out.println("------------------------------");
 					System.out.println(Constants.DE_WRONG_MESSAGETYPE);
