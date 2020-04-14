@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.*;
 
 import Utilities.Constants;
+import connection.Sender;
 
 /**
  * Class that represents a console for the Output!
@@ -103,36 +104,37 @@ public class Console extends OutputStream {
 		// add key listener
 		txtField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// check the message for the right type 
+				// check the message for the right type
 				// SystemAdress Value
 				// [0-111] [Number]
-				if(! txtField.getText().isEmpty() && txtField.getText().matches("^([0-9][0-9][0-1])*,.[0-9]*$")) {
-				// print out the text
-				System.out.println("------------------------------");
-				// switch the bus
-				switch (comboBox.getSelectedItem().toString()) {
-				case "RMX_0":
-					setBus(1);
-					break;
-				case "RMX_1":
-					setBus(2);
-					break;
-				default:
-					setBus(0);
-				}
-				String[] tempArr = txtField.getText().toString().split(",");
-				System.out.println("Bus: " + getBus());
-				System.out.println("SystemAdress: " + tempArr[0]);
-				System.out.println("Value: " + tempArr[1]);
-				System.out.println("------------------------------");
+				if (!txtField.getText().isEmpty() && txtField.getText().matches("^([0-9]*[0-9]*[0-1]*),.[0-9]*$")) {
+					// print out the text
+					System.out.println("------------------------------");
+					// switch the bus
+					switch (comboBox.getSelectedItem().toString()) {
+					case "RMX_0":
+						setBus(1);
+						break;
+					case "RMX_1":
+						setBus(2);
+						break;
+					default:
+						setBus(0);
+					}
+					String[] tempArr = txtField.getText().toString().split(",");
+					System.out.println("Bus: " + getBus());
+					System.out.println("SystemAdress: " + tempArr[0]);
+					System.out.println("Value: " + tempArr[1]);
+					System.out.println("------------------------------");
+					// send the things to the sender
+					Sender.addMessageQueue(new int[] { Constants.RMX_HEAD, getBus(), Integer.parseInt(tempArr[0]),
+							Integer.parseInt(tempArr[1]) });
 				} else {
 					System.out.println("------------------------------");
 					System.out.println(Constants.DE_WRONG_MESSAGETYPE);
 					System.out.println("------------------------------");
 				}
-				
-				// send the things to the sender
-				// Sender.addMessageQueue();
+
 				// clear textfield
 				txtField.setText("");
 			}
