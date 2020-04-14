@@ -103,6 +103,10 @@ public class Console extends OutputStream {
 		// add key listener
 		txtField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// check the message for the right type 
+				// SystemAdress Value
+				// [0-111] [Number]
+				if(! txtField.getText().isEmpty() && txtField.getText().matches("^([0-9][0-9][0-1])*,.[0-9]*$")) {
 				// print out the text
 				System.out.println("------------------------------");
 				System.out.println("User> " + txtField.getText());
@@ -119,6 +123,12 @@ public class Console extends OutputStream {
 				}
 				System.out.println("Bus: " + getBus());
 				System.out.println("------------------------------");
+				} else {
+					System.out.println("------------------------------");
+					System.out.println(Constants.DE_WRONG_MESSAGETYPE);
+					System.out.println("------------------------------");
+				}
+				
 				// send the things to the sender
 				// Sender.addMessageQueue();
 				// clear textfield
@@ -144,20 +154,7 @@ public class Console extends OutputStream {
 		// Create the menu bar
 		menuBar = new JMenuBar();
 		jFrame.setJMenuBar(menuBar);
-		// Build the first menu
-		menu = new JMenu(Constants.DE_MENU_NAME);
-		menuBar.add(menu);
-		// the submenu
-		menuItem = new JMenuItem(Constants.DE_SUBMENU_ITEM_1);
-		menu.add(menuItem);
-		// exit if close is halted
-		menuItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// exit programm
-				System.exit(0);
-			}
-		});
+
 		// add a wrapper for design purpose
 		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		// add a label for the bus chooser
@@ -178,17 +175,30 @@ public class Console extends OutputStream {
 		wrapper.add(comboBox);
 		// add the wrapper to the menu
 		menuBar.add(wrapper);
+
+		// add a wrapper for design purpose
+		JPanel wrapper_filter = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+
 		// Built the Filter
 		JButton btn_Filter = new JButton(Constants.DE_MENU_FILTER);
-		menuBar.add(btn_Filter);
+		wrapper_filter.add(btn_Filter);
 		btn_Filter.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("Filter");
+				// TODO show the filter
+				JFrame frame = new JFrame(Constants.DE_MENU_FILTER);
+				// hides the form
+				frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+				// add the label
+				JLabel lbl_filter = new JLabel(Constants.DE_MENU_FILTER, JLabel.CENTER);
+				frame.add(lbl_filter);
+				frame.pack();
+				frame.setVisible(true);
 			}
 		});
+		// add the wrapper to the menu
+		menuBar.add(wrapper_filter);
 
 		// Build the second menu
 		menu = new JMenu(Constants.DE_MENU_HELP);
@@ -270,11 +280,15 @@ public class Console extends OutputStream {
 	 * Method, that shows the about field
 	 */
 	private static void showAbout() {
-		// create the frame
-		JFrame jFrame = new JFrame("About RMXshark");
-		jFrame.setSize(200, 200);
-		jFrame.add(new JLabel("test"));
-		jFrame.pack();
+		JFrame frame = new JFrame(Constants.DE_SUBMENU_HELP_ITEM_1);
+		// hides the form
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		// add the label
+		JLabel lbl_filter = new JLabel(Constants.DE_SUBMENU_HELP_ITEM_1 + " RMXshark", JLabel.CENTER);
+		lbl_filter.setFont(lbl_filter.getFont().deriveFont(14f));
+		frame.add(lbl_filter);
+		frame.pack();
+		frame.setVisible(true);
 	}
 
 	/**
