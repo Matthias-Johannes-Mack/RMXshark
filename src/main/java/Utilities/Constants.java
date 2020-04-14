@@ -27,6 +27,7 @@ public final class Constants {
 	public static enum Bus {
 		RMX_0, RMX_1
 	}
+	public static final String BUS_LABEL = "Bus:  ";
 
 	// Connection
 	public static byte RMX_VERSION = 0x01;

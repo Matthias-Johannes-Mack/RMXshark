@@ -1,6 +1,8 @@
 package console;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.*;
@@ -91,7 +93,7 @@ public class Console extends OutputStream {
 	private static void createMenu(JFrame jFrame) {
 		// add the menu
 		JMenuBar menuBar;
-		JMenu menu, submenu;
+		JMenu menu;
 		JMenuItem menuItem;
 
 		// Create the menu bar
@@ -103,13 +105,26 @@ public class Console extends OutputStream {
 		// the submenu
 		menuItem = new JMenuItem(Constants.SUBMENU_ITEM_1);
 		menu.add(menuItem);
-		// add the seperator
-		menu.addSeparator();
+		// exit if close is halted
+		menuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// exit programm
+				System.exit(0);
+			}
+		});
+
+		// add a wrapper for design purpose
+		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		// add a label for the bus chooser
+		final JLabel jLabel = new JLabel(Constants.BUS_LABEL);
+		wrapper.add(jLabel);
 		// add the bus chooser with values from Constants.bus enum
 		final JComboBox comboBox = new JComboBox(Constants.Bus.values());
 		comboBox.setVisible(true);
-		menuBar.add(comboBox);
-
+		wrapper.add(comboBox);
+		// add the wrapper to the menu
+		menuBar.add(wrapper);
 		// Build the second menu
 		menu = new JMenu(Constants.MENU_HELP);
 		menuBar.add(menu);
