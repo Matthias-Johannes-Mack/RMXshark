@@ -127,7 +127,7 @@ public class Console extends OutputStream {
 					System.out.println("Value: " + tempArr[1]);
 					System.out.println("------------------------------");
 					// send the things to the sender
-					Sender.addMessageQueue(new int[] { Constants.RMX_HEAD, getBus(), Integer.parseInt(tempArr[0]),
+					Sender.addMessageQueue(new int[] { Constants.RMX_HEAD, 6, 5, getBus(), Integer.parseInt(tempArr[0]),
 							Integer.parseInt(tempArr[1]) });
 				} else {
 					System.out.println("------------------------------");
