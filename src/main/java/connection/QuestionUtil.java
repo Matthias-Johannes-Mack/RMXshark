@@ -19,7 +19,7 @@ public class QuestionUtil {
 	 */
 	protected static void retry(String questionType) {
 		// Show the file dialog
-		int userInput = JOptionPane.showConfirmDialog(null, Constants.RETRY_MESSAGE_RECONNECT, Constants.RETRY_HEAD_RECONNECT,
+		int userInput = JOptionPane.showConfirmDialog(null, Constants.DE_RETRY_MESSAGE_RECONNECT, Constants.DE_RETRY_HEAD_RECONNECT,
 				JOptionPane.YES_NO_OPTION);
 		// reset the idle time
 		ServerReload.setLastServerResponse(System.currentTimeMillis());

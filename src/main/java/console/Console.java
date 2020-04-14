@@ -11,8 +11,6 @@ import java.util.List;
 import javax.swing.*;
 
 import Utilities.Constants;
-import Utilities.Constants.Bus;
-import connection.Sender;
 
 /**
  * Class that represents a console for the Output!
@@ -147,10 +145,10 @@ public class Console extends OutputStream {
 		menuBar = new JMenuBar();
 		jFrame.setJMenuBar(menuBar);
 		// Build the first menu
-		menu = new JMenu(Constants.MENU_NAME);
+		menu = new JMenu(Constants.DE_MENU_NAME);
 		menuBar.add(menu);
 		// the submenu
-		menuItem = new JMenuItem(Constants.SUBMENU_ITEM_1);
+		menuItem = new JMenuItem(Constants.DE_SUBMENU_ITEM_1);
 		menu.add(menuItem);
 		// exit if close is halted
 		menuItem.addActionListener(new ActionListener() {
@@ -160,23 +158,51 @@ public class Console extends OutputStream {
 				System.exit(0);
 			}
 		});
-
 		// add a wrapper for design purpose
 		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		// add a label for the bus chooser
-		final JLabel jLabel = new JLabel(Constants.BUS_LABEL);
+		final JLabel jLabel = new JLabel(Constants.DE_BUS_LABEL);
 		wrapper.add(jLabel);
 		// add the bus chooser with values from Constants.bus enum
 		comboBox = new JComboBox(Constants.Bus.values());
 		comboBox.setVisible(true);
+		comboBox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// put out the choosen bus
+				System.out.println("------------------------------");
+				System.out.println("Bus: " + comboBox.getSelectedItem().toString());
+				System.out.println("------------------------------");
+			}
+		});
 		wrapper.add(comboBox);
 		// add the wrapper to the menu
 		menuBar.add(wrapper);
+		// Built the Filter
+		JButton btn_Filter = new JButton(Constants.DE_MENU_FILTER);
+		menuBar.add(btn_Filter);
+		btn_Filter.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Filter");
+			}
+		});
+
 		// Build the second menu
-		menu = new JMenu(Constants.MENU_HELP);
+		menu = new JMenu(Constants.DE_MENU_HELP);
 		menuBar.add(menu);
 		// the submenu
-		menuItem = new JMenuItem(Constants.SUBMENU_HELP_ITEM_1);
+		menuItem = new JMenuItem(Constants.DE_SUBMENU_HELP_ITEM_1);
+		// calls the about field
+		menuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// show the about form
+				showAbout();
+			}
+		});
 		menu.add(menuItem);
 	}
 
@@ -238,6 +264,17 @@ public class Console extends OutputStream {
 	 */
 	public static void setBus(int bus) {
 		Console.bus = bus;
+	}
+
+	/**
+	 * Method, that shows the about field
+	 */
+	private static void showAbout() {
+		// create the frame
+		JFrame jFrame = new JFrame("About RMXshark");
+		jFrame.setSize(200, 200);
+		jFrame.add(new JLabel("test"));
+		jFrame.pack();
 	}
 
 	/**
