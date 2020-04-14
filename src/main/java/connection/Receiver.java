@@ -2,8 +2,6 @@ package connection;
 
 import Utilities.ByteUtil;
 import Utilities.Constants;
-import bus.BusDepot;
-import schedular.Schedular;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -105,7 +103,7 @@ class Receiver {
 
 		// receive actual message
 		for (int i = 0; i < message.length; i++) {
-			message[i] =  inputStr.read();
+			message[i] = inputStr.read();
 		}
 
 		return message;
@@ -135,53 +133,53 @@ class Receiver {
 			opcode = message[0];
 
 			switch (opcode) {
-				case 0: // 0x00 - positive acknowledgement
+			case 0: // 0x00 - positive acknowledgement
 
-					if (message[1] == 0) {
-						// "final" positive acknowledgement
-						SocketConnector.nextRequestAllowed.set(true);
-					}
+				if (message[1] == 0) {
+					// "final" positive acknowledgement
+					SocketConnector.nextRequestAllowed.set(true);
+				}
 
-					// else message[1] == 0x01: positive acknowledgment "Bearbeitung läuft"
+				// else message[1] == 0x01: positive acknowledgment "Bearbeitung läuft"
 
-					break;
-				case 1: // 0x01 - negative acknowledgement
-					process0x01(message);
-					SocketConnector.nextRequestAllowed.set(true);
-					break;
-				case 3: // 0x03 - initialisation response
-					// TODO Wenn nicht gleiche RMX Version terminieren
+				break;
+			case 1: // 0x01 - negative acknowledgement
+				process0x01(message);
+				SocketConnector.nextRequestAllowed.set(true);
+				break;
+			case 3: // 0x03 - initialisation response
+				// TODO Wenn nicht gleiche RMX Version terminieren
 
-					SocketConnector.nextRequestAllowed.set(true);
-					break;
-				case 4: // 0x04 - state info
-					process0x04(message);
-					SocketConnector.nextRequestAllowed.set(true);
-					// put in the current system time
-					ServerReload.setLastServerResponse(System.currentTimeMillis());
-					break;
-				case 6: // 0x06 - rmx-adress value (RMX-1 Bus)
-					process0x06(message);
-					break;
-				case 8: // 0x06 - lok-info (adress, type, name)
-					process0x08(message);
-					break;
-				case 32: // 0x20 - rmx-channel info (RMX-0 Bus)
-					process0x20(message);
-					break;
-				case 36: // 0x24 - lok-info speed and direction
-					process0x24(message);
-					SocketConnector.nextRequestAllowed.set(true);
-					break;
-				case 40: // 0x28 - lok-info functions (f0 - f16)
-					process0x28(message);
-					SocketConnector.nextRequestAllowed.set(true);
-					break;
-				case 192: // 0x0c0 read lok-decoder
-					break;
-				default:
-					System.out.println("Message received with unknown OPCODE");
-					break;
+				SocketConnector.nextRequestAllowed.set(true);
+				break;
+			case 4: // 0x04 - state info
+				process0x04(message);
+				SocketConnector.nextRequestAllowed.set(true);
+				// put in the current system time
+				ServerReload.setLastServerResponse(System.currentTimeMillis());
+				break;
+			case 6: // 0x06 - rmx-adress value (RMX-1 Bus)
+				process0x06(message);
+				break;
+			case 8: // 0x06 - lok-info (adress, type, name)
+				process0x08(message);
+				break;
+			case 32: // 0x20 - rmx-channel info (RMX-0 Bus)
+				process0x20(message);
+				break;
+			case 36: // 0x24 - lok-info speed and direction
+				process0x24(message);
+				SocketConnector.nextRequestAllowed.set(true);
+				break;
+			case 40: // 0x28 - lok-info functions (f0 - f16)
+				process0x28(message);
+				SocketConnector.nextRequestAllowed.set(true);
+				break;
+			case 192: // 0x0c0 read lok-decoder
+				break;
+			default:
+				System.out.println("Message received with unknown OPCODE");
+				break;
 			}
 		}
 	}
@@ -195,24 +193,24 @@ class Receiver {
 	private static void process0x01(int[] message) {
 
 		switch (message[1]) {
-			case 1: // 0x01 - unknown OPCODE
-				System.err.println("negative acknowledgment: unknown OPCODE");
-				break;
-			case 3: // 0x03 - lok not in database
-				System.err.println("negative acknowledgment: lok not in database");
-				break;
-			case 4: // 0x04 - input error
-				System.err.println("negative acknowledgment: input error");
-				break;
-			case 5: // 0x05 mode unequal to 0x01
-				System.err.println("negative acknowledgment: mode unequal to 0x01");
-				break;
-			case 7: // 0x07 - lok database full
-				System.err.println("negative acknowledgment: lok database full");
-				break;
-			case 8: // 0x08 - control channels occupied (RMX-0 Bus)
-				System.err.println("negative acknowledgment: control channels occupied");
-				break;
+		case 1: // 0x01 - unknown OPCODE
+			System.err.println("negative acknowledgment: unknown OPCODE");
+			break;
+		case 3: // 0x03 - lok not in database
+			System.err.println("negative acknowledgment: lok not in database");
+			break;
+		case 4: // 0x04 - input error
+			System.err.println("negative acknowledgment: input error");
+			break;
+		case 5: // 0x05 mode unequal to 0x01
+			System.err.println("negative acknowledgment: mode unequal to 0x01");
+			break;
+		case 7: // 0x07 - lok database full
+			System.err.println("negative acknowledgment: lok database full");
+			break;
+		case 8: // 0x08 - control channels occupied (RMX-0 Bus)
+			System.err.println("negative acknowledgment: control channels occupied");
+			break;
 		}
 	}
 
@@ -223,17 +221,6 @@ class Receiver {
 	 */
 	private static void process0x04(int[] message) {
 
-		if (Schedular.INIT_SUCESSFULL.get() == false) {
-			// check initialization
-			int status = message[1];
-
-			// checks if bit 5 und 6 is set in Status => initialisation sucessfull
-			if (ByteUtil.bitIsSet(status, 5) && ByteUtil.bitIsSet(status, 6)) {
-				System.out.println("----INIT SUCESFULLL----");
-
-				Schedular.INIT_SUCESSFULL.set(true);
-			}
-		}
 	}
 
 	/**
@@ -245,18 +232,6 @@ class Receiver {
 	 * @param message a message to process
 	 */
 	private static void process0x06(int[] message) {
-
-		if (Schedular.INIT_SUCESSFULL.get()) { // true -- init successfull
-
-			// forward message to schedular
-			Schedular.getSchedular().addMessageToRmxQueue(message);
-			System.out.println("Message zu Schedular hinzugefuegt!");
-
-		} else { // false -- init not successfull
-
-			// updates bus -> creates if not existing
-			BusDepot.getBusDepot().updateBus(message[1], message[2], message[3]);
-		}
 
 	}
 

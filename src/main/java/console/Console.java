@@ -55,9 +55,11 @@ public class Console extends OutputStream {
 	 */
 	public static void runConsole() {
 		// create the frame
-		JFrame jFrame = new JFrame("Smart-RMX");
-		jFrame.add(new JLabel("Smart-RMX Console"), BorderLayout.NORTH);
-
+		JFrame jFrame = new JFrame("RMXshark");
+		jFrame.add(new JLabel("RMXshark Console"), BorderLayout.NORTH);
+		// create the menu
+		createMenu(jFrame);
+		// --------------------------------------------------------------
 		JTextArea jTextArea = new JTextArea();
 		Console console = new Console(jTextArea, 60);
 
@@ -79,27 +81,41 @@ public class Console extends OutputStream {
 		jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		// bigger font size 12 pt
 		jTextArea.setFont(jTextArea.getFont().deriveFont(14f));
-		// key listener for one hand usage
-//		KeyListener keyListener = new KeyListener() {
-//
-//			@Override
-//			public void keyTyped(KeyEvent e) {
-//
-//			}
-//
-//			@Override
-//			public void keyReleased(KeyEvent e) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//
-//			@Override
-//			public void keyPressed(KeyEvent e) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//		};
-//		jTextArea.addKeyListener(keyListener);
+	}
+
+	/**
+	 * Method that creates a menu on the jframe
+	 * 
+	 * @param jFrame
+	 */
+	private static void createMenu(JFrame jFrame) {
+		// add the menu
+		JMenuBar menuBar;
+		JMenu menu, submenu;
+		JMenuItem menuItem;
+
+		// Create the menu bar
+		menuBar = new JMenuBar();
+		jFrame.setJMenuBar(menuBar);
+		// Build the first menu
+		menu = new JMenu(Constants.MENU_NAME);
+		menuBar.add(menu);
+		// the submenu
+		menuItem = new JMenuItem(Constants.SUBMENU_ITEM_1);
+		menu.add(menuItem);
+		// add the seperator
+		menu.addSeparator();
+		// add the bus chooser with values from Constants.bus enum
+		final JComboBox comboBox = new JComboBox(Constants.Bus.values());
+		comboBox.setVisible(true);
+		menuBar.add(comboBox);
+
+		// Build the second menu
+		menu = new JMenu(Constants.MENU_HELP);
+		menuBar.add(menu);
+		// the submenu
+		menuItem = new JMenuItem(Constants.SUBMENU_HELP_ITEM_1);
+		menu.add(menuItem);
 	}
 
 	/**

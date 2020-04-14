@@ -18,6 +18,16 @@ public final class Constants {
 	public static final String RETRY_HEAD_RECONNECT = "Server nicht erreichbar";
 	public static final String EOF = "\n";
 	public static final String EOF_SYS = System.getProperty("line.separator", EOF);
+	// console_menu
+	public static final String MENU_NAME = "Debugger";
+	public static final String SUBMENU_ITEM_1 = "Schlieﬂen";
+	public static final String MENU_HELP = "Hilfe";
+	public static final String SUBMENU_HELP_ITEM_1 = "About";
+	// enum for the bus
+	public static enum Bus {
+		RMX_0, RMX_1
+	}
+
 	// Connection
 	public static byte RMX_VERSION = 0x01;
 	public static final int RMX_HEAD = 0x7c;
