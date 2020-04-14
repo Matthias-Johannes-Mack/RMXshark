@@ -109,7 +109,6 @@ public class Console extends OutputStream {
 				if(! txtField.getText().isEmpty() && txtField.getText().matches("^([0-9][0-9][0-1])*,.[0-9]*$")) {
 				// print out the text
 				System.out.println("------------------------------");
-				System.out.println("User> " + txtField.getText());
 				// switch the bus
 				switch (comboBox.getSelectedItem().toString()) {
 				case "RMX_0":
@@ -121,7 +120,10 @@ public class Console extends OutputStream {
 				default:
 					setBus(0);
 				}
+				String[] tempArr = txtField.getText().toString().split(",");
 				System.out.println("Bus: " + getBus());
+				System.out.println("SystemAdress: " + tempArr[0]);
+				System.out.println("Value: " + tempArr[1]);
 				System.out.println("------------------------------");
 				} else {
 					System.out.println("------------------------------");
