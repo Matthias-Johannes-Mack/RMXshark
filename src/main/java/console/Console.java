@@ -3,14 +3,16 @@ package console;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.*;
 import java.util.List;
 import javax.swing.*;
 
 import Utilities.Constants;
+import Utilities.Constants.Bus;
+import connection.Sender;
 
 /**
  * Class that represents a console for the Output!
@@ -26,6 +28,14 @@ public class Console extends OutputStream {
 	 * Bytearray for the data
 	 */
 	private byte[] byteArr;
+	/**
+	 * Combobox for the bus switch
+	 */
+	private static JComboBox comboBox;
+	/**
+	 * Selected bus
+	 */
+	private static int bus;
 
 	/**
 	 * Constructor with init Textarea
@@ -81,6 +91,43 @@ public class Console extends OutputStream {
 		jFrame.setSize(800, 550);
 		// exit on close
 		jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		// ------------------------------------------------------------------
+		// For the console field
+		JTextField txtField = new JTextField();
+		// bigger font
+		txtField.setFont(txtField.getFont().deriveFont(14f));
+		// add focus to the textfield
+		jFrame.addWindowListener(new WindowAdapter() {
+			public void windowOpened(WindowEvent e) {
+				txtField.requestFocus();
+			}
+		});
+		// add key listener
+		txtField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// print out the text
+				System.out.println("------------------------------");
+				System.out.println("User> " + txtField.getText());
+				// switch the bus
+				switch (comboBox.getSelectedItem().toString()) {
+				case "RMX_0":
+					setBus(1);
+					break;
+				case "RMX_1":
+					setBus(2);
+					break;
+				default:
+					setBus(0);
+				}
+				System.out.println("Bus: " + getBus());
+				System.out.println("------------------------------");
+				// send the things to the sender
+				// Sender.addMessageQueue();
+				// clear textfield
+				txtField.setText("");
+			}
+		});
+		jFrame.add(txtField, BorderLayout.SOUTH);
 		// bigger font size 12 pt
 		jTextArea.setFont(jTextArea.getFont().deriveFont(14f));
 	}
@@ -120,7 +167,7 @@ public class Console extends OutputStream {
 		final JLabel jLabel = new JLabel(Constants.BUS_LABEL);
 		wrapper.add(jLabel);
 		// add the bus chooser with values from Constants.bus enum
-		final JComboBox comboBox = new JComboBox(Constants.Bus.values());
+		comboBox = new JComboBox(Constants.Bus.values());
 		comboBox.setVisible(true);
 		wrapper.add(comboBox);
 		// add the wrapper to the menu
@@ -177,6 +224,20 @@ public class Console extends OutputStream {
 	 */
 	public synchronized void close() {
 		append = null;
+	}
+
+	/**
+	 * @return the bus
+	 */
+	public static int getBus() {
+		return bus;
+	}
+
+	/**
+	 * @param bus the bus to set
+	 */
+	public static void setBus(int bus) {
+		Console.bus = bus;
 	}
 
 	/**

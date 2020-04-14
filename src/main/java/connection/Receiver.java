@@ -1,6 +1,5 @@
 package connection;
 
-import Utilities.ByteUtil;
 import Utilities.Constants;
 
 import java.io.IOException;

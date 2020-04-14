@@ -28,6 +28,7 @@ public final class Constants {
 		RMX_0, RMX_1
 	}
 	public static final String BUS_LABEL = "Bus:  ";
+	public static final String CONSOLE_DESC = "-> ";
 
 	// Connection
 	public static byte RMX_VERSION = 0x01;
