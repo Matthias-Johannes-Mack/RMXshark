@@ -4,9 +4,6 @@ import java.io.IOException;
 import Utilities.Constants;
 import connection.SocketConnector;
 import console.Console;
-import schedular.Schedular;
-import xml.Factory;
-import xml.XML_IO;
 
 /**
  * Class for controlling the whole Tool
@@ -30,14 +27,6 @@ public class Main {
 		// run the console
 		Console.runConsole();
 		head();
-		// open the file
-		XML_IO xml_io = XML_IO.getXML_IO();
-		xml_io.startXmlReadInForUser();
-		// create the factory, actionDepot and the matrix
-		Factory.createActionsAndMatrix();
-		// create the connection
-		// schedular MUSS vor Receiver Thread gestartet sein
-		Schedular.getSchedular().startScheduling();
 		SocketConnector.Connect();
 	}
 
@@ -50,7 +39,7 @@ public class Main {
 				"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
 		System.out.println(
 				"--------------------------------------------------------------------------------------------");
-		System.out.println("------------------------------------------Smart-RMX-----------------------------------");
+		System.out.println("------------------------------------------RMXshark-----------------------------------");
 		System.out.println(
 				"--------------------------------------------------------------------------------------------");
 		System.out.println(

@@ -16,7 +16,6 @@ public final class Constants {
 	// console
 	public static final String RETRY_MESSAGE_RECONNECT = "Erneut verbinden?";
 	public static final String RETRY_HEAD_RECONNECT = "Server nicht erreichbar";
-	public static final String RETRY_MESSAGE_XML = "Datei erneut einlesen?";
 	public static final String EOF = "\n";
 	public static final String EOF_SYS = System.getProperty("line.separator", EOF);
 	// Connection
