@@ -13,6 +13,7 @@ public final class Constants {
 
 	// Main
 	public static final String OPERATING_SYSTEM = System.getProperty("os.name");
+	public static final String Config_Filename="Config.cfg";
 	// console
 	public static final String DE_RETRY_MESSAGE_RECONNECT = "Erneut verbinden?";
 	public static final String DE_RETRY_HEAD_RECONNECT = "Server nicht erreichbar";
@@ -25,8 +26,8 @@ public final class Constants {
 	public static final String DE_MENU_HELP = "Hilfe";
 	public static final String DE_SUBMENU_HELP_ITEM_1 = "About";
 	public static final String DE_MENU_FILTER = "Filter";
-
-	public static final String AUTHORS = "Jan Dammrath, Matthias Mack, Angelo Gennaro, Patrick Mürdter";
+	
+	public static final String AUTHORS = "Jan Dammrath, Matthias Mack, Angelo Gennaro";
 
 	// enum for the bus
 	public static enum Bus {

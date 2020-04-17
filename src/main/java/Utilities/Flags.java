@@ -1,11 +1,36 @@
 package Utilities;
 
+import java.io.Serializable;
+
 /**
  * Class that handles all public flags
  *
  * @author Matthias Mack 3316380
  */
-public final class Flags {
+public final class Flags implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Boolean for the first programm start / show language selection
+	 */
+	public static boolean first_start = true;
+	/**
+	 * @return the first_start
+	 */
+	public static boolean isFirst_start() {
+		return first_start;
+	}
+
+	/**
+	 * @param first_start the first_start to set
+	 */
+	public static void setFirst_start(boolean first_start) {
+		Flags.first_start = first_start;
+	}
+
 	// ----------------------------------------------------
 	// Flags for filtering the states
 	// -----------------------------------------------------
@@ -141,5 +166,4 @@ public final class Flags {
 	public static void setBool_0x28(boolean bool_0x28) {
 		Flags.bool_0x28 = bool_0x28;
 	}
-
 }
