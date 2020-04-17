@@ -26,7 +26,8 @@ public final class Constants {
 	public static final String DE_MENU_HELP = "Hilfe";
 	public static final String DE_SUBMENU_HELP_ITEM_1 = "About";
 	public static final String DE_MENU_FILTER = "Filter";
-	
+	public static final String DE_MAKRO_TOOLTIP = "Makro aufnehmen";
+	//-----------------------------------------------------------------
 	public static final String AUTHORS = "Jan Dammrath, Matthias Mack, Angelo Gennaro";
 
 	// enum for the bus

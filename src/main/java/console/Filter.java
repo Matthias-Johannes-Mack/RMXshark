@@ -161,24 +161,11 @@ public class Filter {
 		});
 		p.add(chkBox_status_0x28, BorderLayout.NORTH);
 		// ----------------------------------------------------------------------
-//		// TODO add all unique entries
-//
-//		// create checkbox array big enough to fit all the items
-//		JCheckBox chkBoxes[] = new JCheckBox[uniqueEntries.size()];
-//
-//		// create dynamically checkboxes
-//		for (int i = 0; i < uniqueEntries.size(); i++) {
-//			chkBoxes[i] = new JCheckBox(uniqueEntries.get(i).toString() + " checkbox" + i);
-//			p.add(chkBoxes[i]);
-//			chkBoxes[i].setSelected(true);
-//		}
-		// ------------------------------------------------------
 		// add the panel
 		frame.add(p);
 		frame.pack();
 		frame.setVisible(true);
 	}
-
 
 	/**
 	 * @return the uniqueEntries

@@ -9,12 +9,12 @@ import java.io.*;
 import java.util.*;
 import java.util.List;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 import Utilities.ByteUtil;
 import Utilities.Constants;
 import connection.Sender;
 import connection.SocketConnector;
+import makro.Makro;
 
 /**
  * Class that represents a console for the Output!
@@ -107,68 +107,75 @@ public class Console extends OutputStream {
 				txtField.requestFocus();
 			}
 		});
-		// add key listener
+		// ------------------------------------------------------
+		// add key listener, calls the message handler
 		txtField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// check the message for the right type
-				// SystemAdress Value
-				// [0-111] [0-7][Value]
-				String txtFieldTxt = txtField.getText();
-				// remove all the whitespaces
-				txtFieldTxt = txtFieldTxt.replaceAll("\\s+", "");
-				System.out.println(txtFieldTxt);
-				// if the txtfieldtest is legit, then move on
-				if (!txtFieldTxt.isEmpty() && txtFieldTxt
-						.matches("^([1-9]{1}[0-1]{1}[0-1]{1}|[1-9]{1}[0-9]{1}|[1-9]{1}),[0-7]{1},[0-1]{1}$")) {
-					// print out the text
-					System.out.println("------------------------------");
-					// switch the bus
-					switch (comboBox.getSelectedItem().toString()) {
-					case "RMX_0":
-						setBus(1);
-						break;
-					case "RMX_1":
-						setBus(2);
-						break;
-					default:
-						setBus(0);
-					}
-					String[] tempArr = txtFieldTxt.split(",");
-					// create message rmx OPCODE [busId](1-4) [systemAdress](0-111) [bitIndex](0-7)
-					// [bitValue] (0-1) format
-					int bus = getBus();
-					int systemAdress = Integer.parseInt(tempArr[0]);
-					int bitIndex = Integer.parseInt(tempArr[1]);
-					int bitValue = Integer.parseInt(tempArr[2]);
-					int calcVal = 0;
-					// calculate the actual bit value if bit is not set
-					if (!ByteUtil.bitIsSet(bitValue, bitIndex)) {
-						calcVal = ByteUtil.calcBinaryValueFromInt(bitIndex);
-					} else {
-						// TODO implement the other side
-						System.out.println("Bit bereits gesetzt!");
-					}
-
-					int[] message = new int[] { Constants.RMX_HEAD, 6, 5, bus, systemAdress, calcVal };
-					System.out.println("Bus: " + getBus());
-					System.out.println("SystemAdress: " + tempArr[0]);
-					System.out.println("Value: " + tempArr[1]);
-					System.out.println("------------------------------");
-					// send the things to the sender
-					Sender.addMessageQueue(message);
-				} else {
-					System.out.println("------------------------------");
-					System.out.println(Constants.DE_WRONG_MESSAGETYPE);
-					System.out.println("------------------------------");
-				}
-
-				// clear textfield
-				txtField.setText("");
+				messageHandler(txtField);
 			}
 		});
 		jFrame.add(txtField, BorderLayout.SOUTH);
+		// ------------------------------------------------------------
 		// bigger font size 12 pt
 		jTextArea.setFont(jTextArea.getFont().deriveFont(14f));
+	}
+
+	private static void messageHandler(JTextField txtField) {
+		// check the message for the right type
+		// SystemAdress Value
+		// [0-111] [0-7][Value]
+		String txtFieldTxt = txtField.getText();
+		// remove all the whitespaces
+		txtFieldTxt = txtFieldTxt.replaceAll("\\s+", "");
+		System.out.println(txtFieldTxt);
+		// if the txtfieldtest is legit, then move on
+		if (!txtFieldTxt.isEmpty()
+				&& txtFieldTxt.matches("^([1-9]{1}[0-1]{1}[0-1]{1}|[1-9]{1}[0-9]{1}|[1-9]{1}),[0-7]{1},[0-1]{1}$")) {
+			// print out the text
+			System.out.println("------------------------------");
+			// switch the bus
+			switch (comboBox.getSelectedItem().toString()) {
+			case "RMX_0":
+				setBus(1);
+				break;
+			case "RMX_1":
+				setBus(2);
+				break;
+			default:
+				setBus(0);
+			}
+			String[] tempArr = txtFieldTxt.split(",");
+			// create message rmx OPCODE [busId](1-4) [systemAdress](0-111) [bitIndex](0-7)
+			// [bitValue] (0-1) format
+			int bus = getBus();
+			int systemAdress = Integer.parseInt(tempArr[0]);
+			int bitIndex = Integer.parseInt(tempArr[1]);
+			int bitValue = Integer.parseInt(tempArr[2]);
+			int calcVal = 0;
+			// calculate the actual bit value if bit is not set
+			if (!ByteUtil.bitIsSet(bitValue, bitIndex)) {
+				calcVal = ByteUtil.calcBinaryValueFromInt(bitIndex);
+			} else {
+				// TODO implement the other side
+				System.out.println("Bit bereits gesetzt!");
+			}
+
+			int[] message = new int[] { Constants.RMX_HEAD, 6, 5, bus, systemAdress, calcVal };
+			System.out.println("Bus: " + getBus());
+			System.out.println("SystemAdress: " + tempArr[0]);
+			System.out.println("Value: " + tempArr[1]);
+			System.out.println("------------------------------");
+			// send the things to the sender
+			Sender.addMessageQueue(message);
+		} else {
+			System.out.println("------------------------------");
+			System.out.println(Constants.DE_WRONG_MESSAGETYPE);
+			System.out.println("------------------------------");
+		}
+
+		// clear textfield
+		txtField.setText("");
+
 	}
 
 	/**
@@ -210,7 +217,7 @@ public class Console extends OutputStream {
 		// add a wrapper for design purpose
 		JPanel wrapper_filter = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-		// Built the Filter
+		// Built the Filter-------------------------------------------------------
 		JButton btn_Filter = new JButton(Constants.DE_MENU_FILTER);
 		wrapper_filter.add(btn_Filter);
 		btn_Filter.addActionListener(new ActionListener() {
@@ -222,7 +229,35 @@ public class Console extends OutputStream {
 		});
 		// add the wrapper to the menu
 		menuBar.add(wrapper_filter);
-
+		//---------------------------------------------------------------------------
+		//---------------Makro-Field-------------------------------------------------------
+		JButton btn_makro = new JButton("O");
+		btn_makro.setFont(new Font("Dialog", Font.BOLD, 13));
+		wrapper_filter.add(btn_makro);
+		// add the tooltip
+		btn_makro.setToolTipText(Constants.DE_MAKRO_TOOLTIP);
+		// add the action
+		btn_makro.addActionListener(new ActionListener() {
+			// show the filter
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// set flag to run or if it is running kill the record
+				if(Makro.isState()) {
+					Makro.setState(false);
+				} else {
+					Makro.setState(true);
+				}
+				// set the color of the button
+				if(Makro.isState()) {
+					btn_makro.setForeground(Color.RED);
+				} else {
+					btn_makro.setForeground(Color.BLACK);
+				}
+			}
+		});
+		// add the wrapper to the menu
+		menuBar.add(wrapper_filter);
+		//---------------------------------------------------------------------------
 		// Build the second menu
 		menu = new JMenu(Constants.DE_MENU_HELP);
 		menuBar.add(menu);
@@ -236,7 +271,7 @@ public class Console extends OutputStream {
 				About.showAbout();
 			}
 		});
-		menu.add(menuItem); 
+		menu.add(menuItem);
 	}
 
 	/**
