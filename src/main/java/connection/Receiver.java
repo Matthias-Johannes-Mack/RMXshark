@@ -1,6 +1,7 @@
 package connection;
 
 import Utilities.Constants;
+import Utilities.Flags;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,8 +62,8 @@ class Receiver {
 					// while there is a message loop
 					while (inputStr.available() > 0) {
 						int[] msg = receive();
-						// write all messages to console
-						OutputUtil.writeMsgToConsole(msg);
+						// write all messages to console if the messages are not filtered
+						// TODO filter messages
 						// switch the opt codes
 						processMessage(msg);
 					}
@@ -190,7 +191,10 @@ class Receiver {
 	 * @param message a message to process
 	 */
 	private static void process0x01(int[] message) {
-
+		// if filter is not in charge put message out
+		if (!Flags.isBool_0x01()) {
+			OutputUtil.writeMsgToConsole(message);
+		}
 		switch (message[1]) {
 		case 1: // 0x01 - unknown OPCODE
 			System.err.println("negative acknowledgment: unknown OPCODE");
@@ -219,7 +223,10 @@ class Receiver {
 	 * @param message a message to process
 	 */
 	private static void process0x04(int[] message) {
-
+		// if filter is not in charge put message out
+		if (!Flags.isBool_0x04()) {
+			OutputUtil.writeMsgToConsole(message);
+		}
 	}
 
 	/**
@@ -231,21 +238,30 @@ class Receiver {
 	 * @param message a message to process
 	 */
 	private static void process0x06(int[] message) {
-
+		// if filter is not in charge put message out
+		if (!Flags.isBool_0x06()) {
+			OutputUtil.writeMsgToConsole(message);
+		}
 	}
 
 	/**
 	 * @param message
 	 */
 	private static void process0x08(int[] message) {
-
+		// if filter is not in charge put message out
+		if (!Flags.isBool_0x08()) {
+			OutputUtil.writeMsgToConsole(message);
+		}
 	}
 
 	/**
 	 * @param message
 	 */
 	private static void process0x20(int[] message) {
-
+		// if filter is not in charge put message out
+		if (!Flags.isBool_0x20()) {
+			OutputUtil.writeMsgToConsole(message);
+		}
 	}
 
 	/**
@@ -255,7 +271,10 @@ class Receiver {
 	 * @param message a message to process
 	 */
 	private static void process0x24(int[] message) {
-
+		// if filter is not in charge put message out
+		if (!Flags.isBool_0x24()) {
+			OutputUtil.writeMsgToConsole(message);
+		}
 	}
 
 	/**
@@ -265,7 +284,9 @@ class Receiver {
 	 * @param message a message to process
 	 */
 	private static void process0x28(int[] message) {
-
+		// if filter is not in charge put message out
+		if (!Flags.isBool_0x28()) {
+			OutputUtil.writeMsgToConsole(message);
+		}
 	}
-
 }

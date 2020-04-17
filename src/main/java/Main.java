@@ -1,5 +1,8 @@
+import java.util.ArrayList;
+
 import connection.SocketConnector;
 import console.Console;
+import console.Filter;
 
 /**
  * Class for controlling the whole Tool

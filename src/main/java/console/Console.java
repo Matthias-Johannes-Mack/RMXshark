@@ -9,10 +9,12 @@ import java.io.*;
 import java.util.*;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import Utilities.ByteUtil;
 import Utilities.Constants;
 import connection.Sender;
+import connection.SocketConnector;
 
 /**
  * Class that represents a console for the Output!
@@ -68,7 +70,10 @@ public class Console extends OutputStream {
 	public static void runConsole() {
 		// create the frame
 		JFrame jFrame = new JFrame("RMXshark");
-		jFrame.add(new JLabel("RMXshark Console"), BorderLayout.NORTH);
+		// add the top description with IP and Port
+		jFrame.add(new JLabel(
+				"Smart-RMX Console | Server: " + SocketConnector.getIp() + " | Port: " + SocketConnector.getPort()),
+				BorderLayout.NORTH);
 		// create the menu
 		createMenu(jFrame);
 		// --------------------------------------------------------------
@@ -137,13 +142,14 @@ public class Console extends OutputStream {
 					int bitValue = Integer.parseInt(tempArr[2]);
 					int calcVal = 0;
 					// calculate the actual bit value if bit is not set
-					if(!ByteUtil.bitIsSet(bitValue, bitIndex)) {
+					if (!ByteUtil.bitIsSet(bitValue, bitIndex)) {
 						calcVal = ByteUtil.calcBinaryValueFromInt(bitIndex);
 					} else {
-						calcVal = ByteUtil.calcBinaryValueFromInt(bitIndex);
+						// TODO implement the other side
+						System.out.println("Bit bereits gesetzt!");
 					}
-					
-					int[] message = new int[] { Constants.RMX_HEAD, 6, 5, bus, systemAdress, calcVal};
+
+					int[] message = new int[] { Constants.RMX_HEAD, 6, 5, bus, systemAdress, calcVal };
 					System.out.println("Bus: " + getBus());
 					System.out.println("SystemAdress: " + tempArr[0]);
 					System.out.println("Value: " + tempArr[1]);
@@ -208,18 +214,10 @@ public class Console extends OutputStream {
 		JButton btn_Filter = new JButton(Constants.DE_MENU_FILTER);
 		wrapper_filter.add(btn_Filter);
 		btn_Filter.addActionListener(new ActionListener() {
-
+			// show the filter
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO show the filter
-				JFrame frame = new JFrame(Constants.DE_MENU_FILTER);
-				// hides the form
-				frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-				// add the label
-				JLabel lbl_filter = new JLabel(Constants.DE_MENU_FILTER, JLabel.CENTER);
-				frame.add(lbl_filter);
-				frame.pack();
-				frame.setVisible(true);
+				Filter.showFilter();
 			}
 		});
 		// add the wrapper to the menu
@@ -235,7 +233,7 @@ public class Console extends OutputStream {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// show the about form
-				showAbout();
+				About.showAbout();
 			}
 		});
 		menu.add(menuItem);
@@ -299,21 +297,6 @@ public class Console extends OutputStream {
 	 */
 	public static void setBus(int bus) {
 		Console.bus = bus;
-	}
-
-	/**
-	 * Method, that shows the about field
-	 */
-	private static void showAbout() {
-		JFrame frame = new JFrame(Constants.DE_SUBMENU_HELP_ITEM_1);
-		// hides the form
-		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		// add the label
-		JLabel lbl_filter = new JLabel(Constants.DE_SUBMENU_HELP_ITEM_1 + " RMXshark", JLabel.CENTER);
-		lbl_filter.setFont(lbl_filter.getFont().deriveFont(14f));
-		frame.add(lbl_filter);
-		frame.pack();
-		frame.setVisible(true);
 	}
 
 	/**
