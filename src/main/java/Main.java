@@ -22,29 +22,32 @@ public class Main {
 	 * @param args - Arguments
 	 */
 	public static void main(String[] args) {
-		readInit();
 		command();
+		readInit();
 	}
 
 	/**
 	 * Method that reads the Config and writes it
 	 */
-	private static void readInit() {
+	protected static Flags readInit() {
+		Flags flags = null;
 		try (FileInputStream fis = new FileInputStream(Constants.Config_Filename);
 				ObjectInputStream ois = new ObjectInputStream(fis)) {
-			final Flags flags = (Flags) ois.readObject();
-
+			 flags = (Flags) ois.readObject();
+			
 		} catch (FileNotFoundException fno) { // if the file is not found, create it
 			createConfig();
 		} catch (Exception e) {
 			System.out.println("Config could not be readed!");
 		}
+	
+		return flags;
 	}
 
 	/**
 	 * Method that creates a config file for the flags
 	 */
-	private static void createConfig() {
+	protected static void createConfig() {
 		Flags flags_new = new Flags();
 		try (FileOutputStream fos = new FileOutputStream(Constants.Config_Filename);
 				ObjectOutputStream oos = new ObjectOutputStream(fos)) {

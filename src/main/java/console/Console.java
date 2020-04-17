@@ -236,7 +236,7 @@ public class Console extends OutputStream {
 				About.showAbout();
 			}
 		});
-		menu.add(menuItem);
+		menu.add(menuItem); 
 	}
 
 	/**
