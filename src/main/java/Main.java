@@ -64,7 +64,7 @@ public class Main {
 	 */
 	private static void command() {
 		// create the makro folder, if it does not exists
-		new File("/Makros/").mkdir();
+		new File("Makros").mkdir();
 		// run the console
 		Console.runConsole();
 		head();
