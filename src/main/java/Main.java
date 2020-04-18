@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -62,6 +63,8 @@ public class Main {
 	 * Method with commands
 	 */
 	private static void command() {
+		// create the makro folder, if it does not exists
+		new File("/Makros/").mkdir();
 		// run the console
 		Console.runConsole();
 		head();

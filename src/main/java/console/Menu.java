@@ -1,14 +1,11 @@
 package console;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -19,13 +16,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import Utilities.Constants;
-import Utilities.Constants.Bus;
-import javafx.scene.control.ComboBox;
 import makro.Makro;
 
 public class Menu {
+	/**
+	 * Combobox for the menu
+	 */
 	static JComboBox comboBox;
-	
+
 	/**
 	 * Method that creates a menu on the jframe
 	 * 
@@ -84,8 +82,11 @@ public class Menu {
 				// set the color of the button
 				if (Makro.isState()) {
 					btn_makro.setForeground(Color.RED);
+					// set the status
+					Console.setLbl_Status(Constants.DE_MAKRO_RUNNING);
 				} else {
 					btn_makro.setForeground(Color.BLACK);
+					Console.setLbl_Status("");
 				}
 			}
 		});
@@ -97,17 +98,17 @@ public class Menu {
 		// TODO add the file list
 		cmb_Makro.addItem("MakroXY");
 		cmb_Makro.setVisible(true);
+		// run the makro
 		cmb_Makro.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// put out the choosen bus
 				System.out.println("------------------------------");
-				System.out.println("Bus: " + cmb_Makro.getSelectedItem().toString());
+				System.out.println("Makro: " + cmb_Makro.getSelectedItem().toString());
 				System.out.println("------------------------------");
 			}
 		});
 		wrapper_filter.add(cmb_Makro);
-
 		// ---------------------------------------------------------------------------
 		// Built the Filter-------------------------------------------------------
 		JButton btn_Filter = new JButton(Constants.DE_MENU_FILTER);
@@ -122,7 +123,6 @@ public class Menu {
 		// add the wrapper to the menu
 		menuBar.add(wrapper_filter);
 		// ---------------------------------------------------------------------------
-
 		// Build the second menu
 		menu = new JMenu(Constants.DE_MENU_HELP);
 		menuBar.add(menu);
@@ -138,5 +138,4 @@ public class Menu {
 		});
 		menu.add(menuItem);
 	}
-
 }

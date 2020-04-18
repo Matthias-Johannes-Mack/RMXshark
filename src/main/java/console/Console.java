@@ -38,6 +38,10 @@ public class Console extends OutputStream {
 	 * Selected bus
 	 */
 	private static int bus;
+	/**
+	 * the statusbar label
+	 */
+	private static JLabel lbl_Status;
 
 	/**
 	 * Constructor with init Textarea
@@ -118,6 +122,14 @@ public class Console extends OutputStream {
 		// ------------------------------------------------------------
 		// bigger font size 12 pt
 		jTextArea.setFont(jTextArea.getFont().deriveFont(14f));
+		
+		// -------------------------------------------------------------
+		// Add the statusbar
+		// ------------------------------------------------------------
+		JPanel jpanel = new JPanel();
+		lbl_Status = new JLabel("Test");
+		lbl_Status.setFont(lbl_Status.getFont().deriveFont(10f));
+		jpanel.add(lbl_Status,BorderLayout.SOUTH);
 	}
 
 	private static void messageHandler(JTextField txtField) {
@@ -176,6 +188,20 @@ public class Console extends OutputStream {
 		// clear textfield
 		txtField.setText("");
 
+	}
+	
+	/**
+	 * @return the lbl_Status
+	 */
+	public static JLabel getLbl_Status() {
+		return lbl_Status;
+	}
+
+	/**
+	 * @param string the lbl_Status to set
+	 */
+	public static void setLbl_Status(String string) {
+		lbl_Status.setText(string);
 	}
 
 	/**

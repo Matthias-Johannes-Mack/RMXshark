@@ -1,6 +1,8 @@
 package makro;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +14,7 @@ public class Record implements Serializable{
 	/**
 	 * Record needs a unique ID
 	 */
-	private String recordID;
+	private int recordID;
 	/**
 	 * Arraylist for all recorded strings
 	 */
@@ -22,9 +24,16 @@ public class Record implements Serializable{
 	 */
 	private String savePath;
 	/**
+	 * timestamp for the makro
+	 */
+	private LocalDateTime timestamp;
+	
+	/**
 	 * Constructor
 	 */
-	public Record() {
-		
+	public Record(int recordID) {
+		this.recordID = recordID;
+		// set the dateTime
+		this.timestamp = LocalDateTime.now();
 	}
 }
