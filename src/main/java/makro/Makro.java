@@ -1,5 +1,11 @@
 package makro;
 
+import java.io.File;
+import java.nio.file.Files;
+
+import javax.swing.ComboBoxModel;
+import javax.swing.plaf.metal.MetalIconFactory.FolderIcon16;
+
 /**
  * Class that handles the macro recorder
  *
@@ -9,7 +15,7 @@ public class Makro {
 	/**
 	 * Boolean for the state of the Recorder
 	 */
-	private static boolean state = false;
+	private static boolean state;
 
 	public static void recordMakro() {
 		Recording record = null;
@@ -21,7 +27,7 @@ public class Makro {
 
 		// TODO implement Makro recorder
 		public void run() {
-			while (!state) {
+			while (isState()) {
 				System.out.println("record...");
 			}
 		}
@@ -39,6 +45,18 @@ public class Makro {
 	 */
 	public static void setState(boolean state) {
 		Makro.state = state;
+	}
+
+	public static ComboBoxModel getFiles() {
+		// modell for the data
+		ComboBoxModel<String> files;
+		// check the filepath
+//		if (new File("/Makros/").exists()) {
+//			System.out.println("exists");
+//		} else { // if not create it
+//			new File("/Makros").mkdirs();
+//		}
+		return null;
 	}
 
 }

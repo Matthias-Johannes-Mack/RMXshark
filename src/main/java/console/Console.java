@@ -75,7 +75,7 @@ public class Console extends OutputStream {
 				"Smart-RMX Console | Server: " + SocketConnector.getIp() + " | Port: " + SocketConnector.getPort()),
 				BorderLayout.NORTH);
 		// create the menu
-		createMenu(jFrame);
+		Menu.createMenu(jFrame);
 		// --------------------------------------------------------------
 		JTextArea jTextArea = new JTextArea();
 		Console console = new Console(jTextArea, 60);
@@ -176,102 +176,6 @@ public class Console extends OutputStream {
 		// clear textfield
 		txtField.setText("");
 
-	}
-
-	/**
-	 * Method that creates a menu on the jframe
-	 * 
-	 * @param jFrame
-	 */
-	private static void createMenu(JFrame jFrame) {
-		// add the menu
-		JMenuBar menuBar;
-		JMenu menu;
-		JMenuItem menuItem;
-
-		// Create the menu bar
-		menuBar = new JMenuBar();
-		jFrame.setJMenuBar(menuBar);
-
-		// add a wrapper for design purpose
-		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		// add a label for the bus chooser
-		final JLabel jLabel = new JLabel(Constants.DE_BUS_LABEL);
-		wrapper.add(jLabel);
-		// add the bus chooser with values from Constants.bus enum
-		comboBox = new JComboBox(Constants.Bus.values());
-		comboBox.setVisible(true);
-		comboBox.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// put out the choosen bus
-				System.out.println("------------------------------");
-				System.out.println("Bus: " + comboBox.getSelectedItem().toString());
-				System.out.println("------------------------------");
-			}
-		});
-		wrapper.add(comboBox);
-		// add the wrapper to the menu
-		menuBar.add(wrapper);
-
-		// add a wrapper for design purpose
-		JPanel wrapper_filter = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-
-		// Built the Filter-------------------------------------------------------
-		JButton btn_Filter = new JButton(Constants.DE_MENU_FILTER);
-		wrapper_filter.add(btn_Filter);
-		btn_Filter.addActionListener(new ActionListener() {
-			// show the filter
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Filter.showFilter();
-			}
-		});
-		// add the wrapper to the menu
-		menuBar.add(wrapper_filter);
-		//---------------------------------------------------------------------------
-		//---------------Makro-Field-------------------------------------------------------
-		JButton btn_makro = new JButton("O");
-		btn_makro.setFont(new Font("Dialog", Font.BOLD, 13));
-		wrapper_filter.add(btn_makro);
-		// add the tooltip
-		btn_makro.setToolTipText(Constants.DE_MAKRO_TOOLTIP);
-		// add the action
-		btn_makro.addActionListener(new ActionListener() {
-			// show the filter
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// set flag to run or if it is running kill the record
-				if(Makro.isState()) {
-					Makro.setState(false);
-				} else {
-					Makro.setState(true);
-				}
-				// set the color of the button
-				if(Makro.isState()) {
-					btn_makro.setForeground(Color.RED);
-				} else {
-					btn_makro.setForeground(Color.BLACK);
-				}
-			}
-		});
-		// add the wrapper to the menu
-		menuBar.add(wrapper_filter);
-		//---------------------------------------------------------------------------
-		// Build the second menu
-		menu = new JMenu(Constants.DE_MENU_HELP);
-		menuBar.add(menu);
-		// the submenu
-		menuItem = new JMenuItem(Constants.DE_SUBMENU_HELP_ITEM_1);
-		// calls the about field
-		menuItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// show the about form
-				About.showAbout();
-			}
-		});
-		menu.add(menuItem);
 	}
 
 	/**

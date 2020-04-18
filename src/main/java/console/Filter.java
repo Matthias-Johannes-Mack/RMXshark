@@ -36,11 +36,12 @@ public class Filter {
 	 * Method, that shows the filter Form
 	 */
 	protected static synchronized void showFilter() {
-		// TODO show the filter
+		// show the filter
 		JFrame frame = new JFrame(Constants.DE_MENU_FILTER);
 		// hides the form
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
+		// the  filter frame does not need to bee resized
+		frame.setResizable(false);
 		// put in the padding / border
 		JPanel p = new JPanel();
 		p.setBorder(new EmptyBorder(10, 10, 10, 10));
