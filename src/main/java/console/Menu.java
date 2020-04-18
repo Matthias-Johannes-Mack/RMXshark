@@ -83,10 +83,14 @@ public class Menu {
 				if (Makro.isState()) {
 					btn_makro.setForeground(Color.RED);
 					// set the status
-					Console.setLbl_Status(Constants.DE_MAKRO_RUNNING);
+					System.out.println("-----------------------------");
+					System.out.println(Constants.DE_MAKRO_RUNNING);
+					System.out.println("-----------------------------");
 				} else {
 					btn_makro.setForeground(Color.BLACK);
-					Console.setLbl_Status("");
+					System.out.println("-----------------------------");
+					System.out.println(Constants.DE_MAKRO_DONE);
+					System.out.println("-----------------------------");
 				}
 			}
 		});
@@ -104,7 +108,7 @@ public class Menu {
 			public void actionPerformed(ActionEvent e) {
 				// put out the choosen bus
 				System.out.println("------------------------------");
-				System.out.println("Makro: " + cmb_Makro.getSelectedItem().toString());
+				System.out.println("Run Makro: " + cmb_Makro.getSelectedItem().toString());
 				System.out.println("------------------------------");
 			}
 		});
