@@ -1,7 +1,6 @@
 package console;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -16,11 +15,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import Utilities.Constants;
 import makro.Makro;
-import makro.Record;
 
 public class Menu {
 	/**

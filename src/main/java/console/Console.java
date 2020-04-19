@@ -9,11 +9,9 @@ import java.io.*;
 import java.util.*;
 import java.util.List;
 import javax.swing.*;
-
 import Utilities.ByteUtil;
 import Utilities.Constants;
 import connection.Sender;
-import connection.SocketConnector;
 import makro.Makro;
 
 /**
@@ -155,7 +153,7 @@ public class Console extends OutputStream {
 				setBus(2);
 				break;
 			default:
-				setBus(0);
+				setBus(1);
 			}
 			String[] tempArr = txtFieldTxt.split(",");
 			// create message rmx OPCODE [busId](1-4) [systemAdress](0-111) [bitIndex](0-7)
