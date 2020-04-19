@@ -125,8 +125,7 @@ public class Makro {
 		// catch the null
 		if (makroName != null) {
 			// create the input stream
-			FileInputStream fis = new FileInputStream(
-					Constants.MAKRO_FOLDERNAME + "/" + makroName);
+			FileInputStream fis = new FileInputStream(Constants.MAKRO_FOLDERNAME + "/" + makroName);
 			// get teh object
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			// get the class
@@ -139,6 +138,8 @@ public class Makro {
 					// add the array
 					Sender.addMessageQueue(arr);
 				}
+				// sysout the final line
+				System.out.println("--------------------------------------");
 			}
 		}
 	}
