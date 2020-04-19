@@ -14,6 +14,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import Utilities.Constants;
 import makro.Makro;
@@ -90,7 +91,12 @@ public class Menu {
 					btn_makro.setForeground(Color.BLACK);
 					System.out.println("-----------------------------");
 					System.out.println(Constants.DE_MAKRO_DONE);
+					System.out.println(Constants.DE_MAKRO_DONE_MESSAGES + Makro.getSize());
 					System.out.println("-----------------------------");
+					// TODO implement write Makro to file by Makro.writeMakroToFile();
+					if (Makro.getSize() > 0) {
+						// TODO put in a counter for the makros c++
+					}
 				}
 			}
 		});

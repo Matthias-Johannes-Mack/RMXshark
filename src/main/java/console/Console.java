@@ -43,6 +43,8 @@ public class Console extends OutputStream {
 	 */
 	private static JLabel lbl_Status;
 
+	private static Makro makro;
+
 	/**
 	 * Constructor with init Textarea
 	 * 
@@ -122,14 +124,14 @@ public class Console extends OutputStream {
 		// ------------------------------------------------------------
 		// bigger font size 12 pt
 		jTextArea.setFont(jTextArea.getFont().deriveFont(14f));
-		
+
 		// -------------------------------------------------------------
 		// Add the statusbar
 		// ------------------------------------------------------------
 		JPanel jpanel = new JPanel();
 		lbl_Status = new JLabel("Test");
 		lbl_Status.setFont(lbl_Status.getFont().deriveFont(10f));
-		jpanel.add(lbl_Status,BorderLayout.SOUTH);
+		jpanel.add(lbl_Status, BorderLayout.SOUTH);
 	}
 
 	private static void messageHandler(JTextField txtField) {
@@ -179,7 +181,17 @@ public class Console extends OutputStream {
 			System.out.println("------------------------------");
 			// send the things to the sender
 			Sender.addMessageQueue(message);
-		} else {
+			// if the Makro recorder is on
+			if (Makro.isState()) {
+				if (makro == null) {
+					makro = new Makro();
+				}
+				// add lines to the makro arraylist
+				Makro.addLines(message);
+			}
+		} else
+
+		{
 			System.out.println("------------------------------");
 			System.out.println(Constants.DE_WRONG_MESSAGETYPE);
 			System.out.println("------------------------------");
@@ -189,7 +201,7 @@ public class Console extends OutputStream {
 		txtField.setText("");
 
 	}
-	
+
 	/**
 	 * @return the lbl_Status
 	 */

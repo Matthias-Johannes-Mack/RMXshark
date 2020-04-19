@@ -33,7 +33,8 @@ public final class Constants {
 	public static final String DE_MENU_FILTER = "Filter";
 	public static final String DE_MAKRO_TOOLTIP = "Makro aufnehmen";
 	public static final String DE_MAKRO_RUNNING = "Makro wird aufgenommen...";
-	public static final String DE_MAKRO_DONE = "Makro aufgenommen!";
+	public static final String DE_MAKRO_DONE = "Aufnahme beendet!";
+	public static final String DE_MAKRO_DONE_MESSAGES = " Nachrichten aufgenommen!";
 	// -----------------------------------------------------------------
 	public static final String AUTHORS = "Jan Dammrath, Matthias Mack, Angelo Gennaro";
 

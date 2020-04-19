@@ -1,10 +1,6 @@
 package makro;
 
-import java.io.File;
-import java.nio.file.Files;
-
-import javax.swing.ComboBoxModel;
-import javax.swing.plaf.metal.MetalIconFactory.FolderIcon16;
+import java.util.ArrayList;
 
 /**
  * Class that handles the macro recorder
@@ -17,20 +13,19 @@ public class Makro {
 	 */
 	private static boolean state;
 
-	public static void recordMakro() {
-		Recording record = null;
-		record.run();
-		setState(false);
+	private static volatile ArrayList<int[]> recordVals;
+
+	public Makro() {
+		Makro.recordVals = new ArrayList<>();
 	}
 
-	public class Recording implements Runnable {
-
-		// TODO implement Makro recorder
-		public void run() {
-			while (isState()) {
-				System.out.println("record...");
-			}
-		}
+	/**
+	 * Add lines to the Array
+	 * 
+	 * @param intArr
+	 */
+	public static synchronized void addLines(int[] intArr) {
+		recordVals.add(intArr);
 	}
 
 	/**
@@ -47,16 +42,16 @@ public class Makro {
 		Makro.state = state;
 	}
 
-	public static ComboBoxModel getFiles() {
-		// modell for the data
-		ComboBoxModel<String> files;
-		// check the filepath
-//		if (new File("/Makros/").exists()) {
-//			System.out.println("exists");
-//		} else { // if not create it
-//			new File("/Makros").mkdirs();
-//		}
-		return null;
+	/**
+	 * Get the size of the makro array
+	 * 
+	 * @return - 0 if the list is empty 
+	 */
+	public static int getSize() {
+		if (recordVals == null) {
+			return 0;
+		} else {
+			return recordVals.size();
+		}
 	}
-
 }
