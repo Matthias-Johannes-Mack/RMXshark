@@ -106,7 +106,7 @@ public class Makro {
 		// try to write the makro to a file in the makros folder
 		// makros/makro_XY.mk
 		try (FileOutputStream fos = new FileOutputStream(Constants.MAKRO_FOLDERNAME + "/" + Constants.MAKRO_FILENAME
-				+ makroCount + Constants.MAKRO_FILEEXTENSION); ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+				+ makroCount); ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 			// write the object
 			oos.writeObject(record);
 		} catch (IOException e) { // on error put out the error message

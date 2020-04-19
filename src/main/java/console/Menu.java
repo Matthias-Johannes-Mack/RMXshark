@@ -119,8 +119,6 @@ public class Menu {
 			for (File f : Makro.getMakroFileList()) {
 				// get the pathName
 				pathStr = f.getName().toString();
-				// replace the extension
-				pathStr.replace(Constants.MAKRO_FILEEXTENSION, "");
 				// add item to the combobox
 				cmb_Makro.addItem(pathStr);
 			}
