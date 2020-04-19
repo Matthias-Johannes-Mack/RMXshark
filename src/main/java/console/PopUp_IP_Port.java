@@ -18,7 +18,6 @@ import javax.swing.border.EmptyBorder;
 import Utilities.Constants;
 import connection.SocketConnector;
 
-
 /**
  * Class that creates the IP / Port popup
  *
@@ -169,6 +168,12 @@ public class PopUp_IP_Port {
 		return dialogVisible;
 	}
 
+	/**
+	 * Method that prints out the ipAdress
+	 * 
+	 * @param ip
+	 * @param port
+	 */
 	public static void printOutIP(String ip, int port) {
 		System.out.println("--------------------------------------");
 		System.out.println("Server: " + ip + " Port: " + port);
