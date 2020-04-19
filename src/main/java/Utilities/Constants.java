@@ -13,7 +13,12 @@ public final class Constants {
 
 	// Main
 	public static final String OPERATING_SYSTEM = System.getProperty("os.name");
-	public static final String Config_Filename="Config.cfg";
+	public static final String Config_Filename = "Config.cfg";
+	// Popup
+	public static final String POPUP_TITLE = "IP & Port waehlen";
+	public static final String POPUP_SUBMIT = "Weiter";
+	public static final String POPUP_UNVALID_IP = "Die  eingegebene IP ist leider nicht valide! (255.255.255.255)";
+	public static final String POPUP_UNVALID_PORT = "Der eingebene Port ist leider nicht valide! (Nur Zahlen)";
 	// console
 	public static final String DE_RETRY_MESSAGE_RECONNECT = "Erneut verbinden?";
 	public static final String DE_RETRY_HEAD_RECONNECT = "Server nicht erreichbar";
@@ -29,7 +34,7 @@ public final class Constants {
 	public static final String DE_MAKRO_TOOLTIP = "Makro aufnehmen";
 	public static final String DE_MAKRO_RUNNING = "Makro wird aufgenommen...";
 	public static final String DE_MAKRO_DONE = "Makro aufgenommen!";
-	//-----------------------------------------------------------------
+	// -----------------------------------------------------------------
 	public static final String AUTHORS = "Jan Dammrath, Matthias Mack, Angelo Gennaro";
 
 	// enum for the bus

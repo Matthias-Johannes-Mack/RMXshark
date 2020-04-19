@@ -12,6 +12,10 @@ import java.util.ArrayList;
  */
 public class Record implements Serializable{
 	/**
+	 * Serial version
+	 */
+	private static final long serialVersionUID = -5625099400637018899L;
+	/**
 	 * Record needs a unique ID
 	 */
 	private int recordID;

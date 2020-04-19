@@ -146,7 +146,7 @@ public class Console extends OutputStream {
 			// print out the text
 			System.out.println("------------------------------");
 			// switch the bus
-			switch (comboBox.getSelectedItem().toString()) {
+			switch (Menu.comboBox.getSelectedItem().toString()) {
 			case "RMX_0":
 				setBus(1);
 				break;

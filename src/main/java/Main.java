@@ -10,6 +10,7 @@ import Utilities.Constants;
 import Utilities.Flags;
 import connection.SocketConnector;
 import console.Console;
+import console.PopUp_IP_Port;
 
 /**
  * Class for controlling the whole Tool
@@ -68,6 +69,12 @@ public class Main {
 		// run the console
 		Console.runConsole();
 		head();
+		// show popup before connecting
+		PopUp_IP_Port.showPopup();
+		// wait & notify
+		while (PopUp_IP_Port.isDisplayed()) {
+
+		}
 		SocketConnector.Connect();
 	}
 
