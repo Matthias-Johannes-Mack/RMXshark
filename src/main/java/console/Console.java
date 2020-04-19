@@ -77,14 +77,13 @@ public class Console extends OutputStream {
 		// create the frame
 		JFrame jFrame = new JFrame("RMXshark");
 		// add the top description with IP and Port
-		jFrame.add(new JLabel(
-				"Smart-RMX Console | Server: " + SocketConnector.getIp() + " | Port: " + SocketConnector.getPort()),
-				BorderLayout.NORTH);
+		jFrame.add(new JLabel("Smart-RMX Console"), BorderLayout.NORTH);
 		// create the menu
 		Menu.createMenu(jFrame);
 		// --------------------------------------------------------------
 		JTextArea jTextArea = new JTextArea();
-		Console console = new Console(jTextArea, 60);
+		// console with 1500 lines
+		Console console = new Console(jTextArea, 1500);
 
 		// the stream for the console -> redirect everything
 		PrintStream printStream = new PrintStream(console);
@@ -184,6 +183,7 @@ public class Console extends OutputStream {
 			// if the Makro recorder is on
 			if (Makro.isState()) {
 				if (makro == null) {
+					// create a new makro instance
 					makro = new Makro();
 				}
 				// add lines to the makro arraylist
@@ -191,7 +191,7 @@ public class Console extends OutputStream {
 			}
 		} else
 
-		{
+		{ // put out the error message
 			System.out.println("------------------------------");
 			System.out.println(Constants.DE_WRONG_MESSAGETYPE);
 			System.out.println("------------------------------");

@@ -1,10 +1,12 @@
 package console;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,6 +20,7 @@ import javax.swing.JTextField;
 
 import Utilities.Constants;
 import makro.Makro;
+import makro.Record;
 
 public class Menu {
 	/**
@@ -91,11 +94,14 @@ public class Menu {
 					btn_makro.setForeground(Color.BLACK);
 					System.out.println("-----------------------------");
 					System.out.println(Constants.DE_MAKRO_DONE);
-					System.out.println(Constants.DE_MAKRO_DONE_MESSAGES + Makro.getSize());
+					// put out the number of done Actions
+					System.out.println("-> " + Makro.getSize() + Constants.DE_MAKRO_DONE_MESSAGES);
 					System.out.println("-----------------------------");
 					// TODO implement write Makro to file by Makro.writeMakroToFile();
 					if (Makro.getSize() > 0) {
-						// TODO put in a counter for the makros c++
+						// saves a Makro by increment with one
+						Makro.saveMakro(Makro.getMakroCount() + 1);
+						System.out.println("Count Makros " + Makro.getMakroCount());
 					}
 				}
 			}
@@ -105,17 +111,37 @@ public class Menu {
 		// add a dropdown for the Makros
 		// add the Makro filelist
 		JComboBox<String> cmb_Makro = new JComboBox();
-		// TODO add the file list
-		cmb_Makro.addItem("MakroXY");
+		// add the default, empty value
+		cmb_Makro.addItem(" ");
+		String pathStr;
+		// get all files in the makros folder
+		if (Makro.getMakroFileList() != null) {
+			for (File f : Makro.getMakroFileList()) {
+				// get the pathName
+				pathStr = f.getName().toString();
+				// replace the extension
+				pathStr.replace(Constants.MAKRO_FILEEXTENSION, "");
+				// add item to the combobox
+				cmb_Makro.addItem(pathStr);
+			}
+		}
 		cmb_Makro.setVisible(true);
 		// run the makro
 		cmb_Makro.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// put out the choosen bus
-				System.out.println("------------------------------");
-				System.out.println("Run Makro: " + cmb_Makro.getSelectedItem().toString());
-				System.out.println("------------------------------");
+				try {
+					// if it is not the empty value, try to run the makro
+					if (!cmb_Makro.getSelectedItem().toString().equals(" ")) {
+						// run the choosen makro
+						System.out.println("------------------------------");
+						System.out.println("Run Makro: " + cmb_Makro.getSelectedItem().toString());
+						System.out.println("------------------------------");
+						Makro.runMakro(cmb_Makro.getSelectedItem().toString());
+					}
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		wrapper_filter.add(cmb_Makro);

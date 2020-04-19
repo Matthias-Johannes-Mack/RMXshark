@@ -35,14 +35,14 @@ public class Main {
 		Flags flags = null;
 		try (FileInputStream fis = new FileInputStream(Constants.Config_Filename);
 				ObjectInputStream ois = new ObjectInputStream(fis)) {
-			 flags = (Flags) ois.readObject();
-			
+			flags = (Flags) ois.readObject();
+
 		} catch (FileNotFoundException fno) { // if the file is not found, create it
 			createConfig();
 		} catch (Exception e) {
 			System.out.println("Config could not be readed!");
 		}
-	
+
 		return flags;
 	}
 
@@ -65,7 +65,7 @@ public class Main {
 	 */
 	private static void command() {
 		// create the makro folder, if it does not exists
-		new File("Makros").mkdir();
+		new File(Constants.MAKRO_FOLDERNAME).mkdir();
 		// run the console
 		Console.runConsole();
 		head();
@@ -93,5 +93,5 @@ public class Main {
 		System.out.println(
 				"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
 	}
-	
+
 }

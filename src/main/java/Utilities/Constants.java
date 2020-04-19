@@ -31,10 +31,15 @@ public final class Constants {
 	public static final String DE_MENU_HELP = "Hilfe";
 	public static final String DE_SUBMENU_HELP_ITEM_1 = "About";
 	public static final String DE_MENU_FILTER = "Filter";
+	// makro menu
+	public static final String MAKRO_FOLDERNAME = "Makros";
+	public static final String MAKRO_FILENAME = "Makro_";
+	public static final String MAKRO_FILEEXTENSION = ".mk";
 	public static final String DE_MAKRO_TOOLTIP = "Makro aufnehmen";
 	public static final String DE_MAKRO_RUNNING = "Makro wird aufgenommen...";
 	public static final String DE_MAKRO_DONE = "Aufnahme beendet!";
 	public static final String DE_MAKRO_DONE_MESSAGES = " Nachrichten aufgenommen!";
+	public static final String DE_MAKRO_CREATION_FAILURE = "Makro konnte nicht erstellt werden!";
 	// -----------------------------------------------------------------
 	public static final String AUTHORS = "Jan Dammrath, Matthias Mack, Angelo Gennaro";
 
