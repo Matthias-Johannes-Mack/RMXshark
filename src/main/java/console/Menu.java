@@ -16,6 +16,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import Utilities.Constants;
+import connection.Sender;
 import makro.Makro;
 
 public class Menu {
@@ -34,6 +35,7 @@ public class Menu {
 		JMenuBar menuBar;
 		JMenu menu;
 		JMenuItem menuItem;
+		Font font = new Font("Dialog", Font.BOLD, 12);
 
 		// Create the menu bar
 		menuBar = new JMenuBar();
@@ -43,9 +45,11 @@ public class Menu {
 		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		// add a label for the bus chooser
 		final JLabel jLabel = new JLabel(Constants.DE_BUS_LABEL);
+		jLabel.setFont(font);
 		wrapper.add(jLabel);
 		// add the bus chooser with values from Constants.bus enum
 		comboBox = new JComboBox(Constants.Bus.values());
+		comboBox.setFont(font);
 		comboBox.setVisible(true);
 		comboBox.addActionListener(new ActionListener() {
 			@Override
@@ -62,9 +66,22 @@ public class Menu {
 
 		// add a wrapper for design purpose
 		JPanel wrapper_filter = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		// Built the Filter-------------------------------------------------------
+		JButton btn_EMERGENCY = new JButton(Constants.DE_MENU_EMERGENCY);
+		btn_EMERGENCY.setFont(font);
+		wrapper_filter.add(btn_EMERGENCY);
+		btn_EMERGENCY.addActionListener(new ActionListener() {
+			// show the filter
+			@Override
+			public void actionPerformed(ActionEvent e) {
+//TODO implement emergency button
+			}
+		});
+		// add the wrapper to the menu
+		menuBar.add(wrapper_filter);
 		// ---------------Makro-Field-------------------------------------------------------
 		JButton btn_makro = new JButton("O");
-		btn_makro.setFont(new Font("Dialog", Font.BOLD, 13));
+		btn_makro.setFont(font);
 		wrapper_filter.add(btn_makro);
 		// add the tooltip
 		btn_makro.setToolTipText(Constants.DE_MAKRO_TOOLTIP);
@@ -107,6 +124,7 @@ public class Menu {
 		// add a dropdown for the Makros
 		// add the Makro filelist
 		JComboBox<String> cmb_Makro = new JComboBox();
+		cmb_Makro.setFont(font);
 		// add the default, empty value
 		cmb_Makro.addItem(" ");
 		String pathStr;
@@ -142,6 +160,7 @@ public class Menu {
 		// ---------------------------------------------------------------------------
 		// Built the Filter-------------------------------------------------------
 		JButton btn_Filter = new JButton(Constants.DE_MENU_FILTER);
+		btn_Filter.setFont(font);
 		wrapper_filter.add(btn_Filter);
 		btn_Filter.addActionListener(new ActionListener() {
 			// show the filter

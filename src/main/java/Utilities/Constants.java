@@ -30,6 +30,7 @@ public final class Constants {
 	public static final String DE_SUBMENU_ITEM_1 = "Schlieﬂen";
 	public static final String DE_MENU_HELP = "Hilfe";
 	public static final String DE_SUBMENU_HELP_ITEM_1 = "About";
+	public static final String DE_MENU_EMERGENCY = "Nothalt";
 	public static final String DE_MENU_FILTER = "Filter";
 	// makro menu
 	public static final String MAKRO_FOLDERNAME = "Makros";
