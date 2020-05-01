@@ -11,6 +11,8 @@ import Utilities.Flags;
 import connection.SocketConnector;
 import console.Console;
 import console.PopUp_IP_Port;
+import javafx.application.Application;
+import newDesign.ConsoleController;
 
 /**
  * Class for controlling the whole Tool
@@ -24,7 +26,7 @@ public class Main {
 	 * @param args - Arguments
 	 */
 	public static void main(String[] args) {
-		command();
+		command(args);
 		readInit();
 	}
 
@@ -63,35 +65,19 @@ public class Main {
 	/**
 	 * Method with commands
 	 */
-	private static void command() {
+	private static void command(String[] args) {
 		// create the makro folder, if it does not exists
 		new File(Constants.MAKRO_FOLDERNAME).mkdir();
 		// run the console
-		Console.runConsole();
-		head();
-		// show popup before connecting
-		PopUp_IP_Port.showPopup();
-		// wait & notify
-		while (PopUp_IP_Port.isDisplayed()) {
-
-		}
+		Application.launch(ConsoleController.class, args);
+//		// show popup before connecting
+//		PopUp_IP_Port.showPopup();
+//		// wait & notify
+//		while (PopUp_IP_Port.isDisplayed()) {
+//
+//		}
 		SocketConnector.Connect();
 	}
 
-	/**
-	 * Method for the head
-	 * 
-	 */
-	private static void head() {
-		System.out.println(
-				"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-		System.out.println(
-				"--------------------------------------------------------------------------------------------");
-		System.out.println("------------------------------------------RMXshark-----------------------------------");
-		System.out.println(
-				"--------------------------------------------------------------------------------------------");
-		System.out.println(
-				"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-	}
 
 }
