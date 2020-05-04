@@ -142,7 +142,7 @@ public class Console extends OutputStream {
 
 		// remove all the whitespaces
 		txtFieldTxt = txtFieldTxt.replaceAll("\\s+", "");
-		
+
 		// if the txtfieldtest is legit, then move on
 		if (!txtFieldTxt.isEmpty()
 				&& txtFieldTxt.matches("^([0-9]{1}[0-1]{1}[0-1]{1}|[0-9]{1}[0-9]{1}|[0-9]{1}),[0-7]{1},[0-1]{1}$")) {
@@ -165,7 +165,7 @@ public class Console extends OutputStream {
 			// [bitValue] (0-1) format
 			int bus = getBus();
 			int systemAdress = Integer.parseInt(tempArr[0]);
-			int bitIndex = Integer.parseInt(tempArr[1]);
+			int bitIndex = Integer.parseInt(tempArr[1]) + 1;
 			int bitValue = Integer.parseInt(tempArr[2]);
 			int calcVal = 0;
 			// calculate the actual bit value if bit is not set
@@ -193,46 +193,46 @@ public class Console extends OutputStream {
 				Makro.addLines(message);
 			}
 			// put the byte value out
-		} else if (!txtFieldTxt.isEmpty()
-				&& txtFieldTxt.matches("^([0-9]{1}|[1-9]{1}[0-9]{1}|[1]{1}[0-1]{1}[0-1]{1}),([0-9]{1}|[1-9]{1}[0-9]{1}|[1]{1}[0-9]{1}[0-9]{1}|[2]{1}[0-5]{1}[0-5]{1}|[2]{1}[0-4]{1}[0-9]{1})$")) {
+		} else if (!txtFieldTxt.isEmpty() && txtFieldTxt.matches(
+				"^([0-9]{1}|[1-9]{1}[0-9]{1}|[1]{1}[0-1]{1}[0-1]{1}),([0-9]{1}|[1-9]{1}[0-9]{1}|[1]{1}[0-9]{1}[0-9]{1}|[2]{1}[0-5]{1}[0-5]{1}|[2]{1}[0-4]{1}[0-9]{1})$")) {
 			// print out the text
-						System.out.println("------------------------------");
-						// switch the bus
-						switch (Menu.comboBox.getSelectedItem().toString()) {
-						case "RMX_0":
-							setBus(1);
-							break;
-						case "RMX_1":
-							setBus(2);
-							break;
-						default:
-							setBus(1);
-						}
-						String[] tempArr = txtFieldTxt.split(",");
-						// create message rmx OPCODE [busId](1-4) [systemAdress](0-111) [bitIndex](0-7)
-						// [bitValue] (0-1) format
-						int bus = getBus();
-						int systemAdress = Integer.parseInt(tempArr[0]);
-						int bitValue = Integer.parseInt(tempArr[1]);
-						// add the one to the system adress for allocation purposes
-						int[] message = new int[] { Constants.RMX_HEAD, 6, 5, bus, systemAdress, bitValue };
-						System.out.println("Bus: " + getBus());
-						System.out.println("SystemAdress: " + tempArr[0]);
-						System.out.println("Value: " + tempArr[1]);
-						System.out.println("------------------------------");
-						// send the things to the sender
-						Sender.addMessageQueue(message);
-						// if the Makro recorder is on
-						if (Makro.isState()) {
-							if (makro == null) {
-								// create a new makro instance
-								makro = new Makro();
-							}
-							// add lines to the makro arraylist
-							Makro.addLines(message);
-						}
+			System.out.println("------------------------------");
+			// switch the bus
+			switch (Menu.comboBox.getSelectedItem().toString()) {
+			case "RMX_0":
+				setBus(1);
+				break;
+			case "RMX_1":
+				setBus(2);
+				break;
+			default:
+				setBus(1);
+			}
+			String[] tempArr = txtFieldTxt.split(",");
+			// create message rmx OPCODE [busId](1-4) [systemAdress](0-111) [bitIndex](0-7)
+			// [bitValue] (0-1) format
+			int bus = getBus();
+			int systemAdress = Integer.parseInt(tempArr[0]);
+			int bitValue = Integer.parseInt(tempArr[1]);
+			// add the one to the system adress for allocation purposes
+			int[] message = new int[] { Constants.RMX_HEAD, 6, 5, bus, systemAdress, bitValue };
+			System.out.println("Bus: " + getBus());
+			System.out.println("SystemAdress: " + tempArr[0]);
+			System.out.println("Value: " + tempArr[1]);
+			System.out.println("------------------------------");
+			// send the things to the sender
+			Sender.addMessageQueue(message);
+			// if the Makro recorder is on
+			if (Makro.isState()) {
+				if (makro == null) {
+					// create a new makro instance
+					makro = new Makro();
+				}
+				// add lines to the makro arraylist
+				Makro.addLines(message);
+			}
 		}
-		
+
 		else
 
 		{ // put out the error message

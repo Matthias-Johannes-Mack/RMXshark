@@ -25,6 +25,10 @@ public class Menu {
 	 */
 	static JComboBox comboBox;
 
+	static JComboBox<String> cmb_Makro;
+
+	static String pathStr;
+
 	/**
 	 * Method that creates a menu on the jframe
 	 * 
@@ -74,7 +78,8 @@ public class Menu {
 			// show the filter
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//TODO implement emergency button
+				// TODO implement emergency button
+				Sender.addMessageQueue(new int[] {} );
 			}
 		});
 		// add the wrapper to the menu
@@ -110,11 +115,14 @@ public class Menu {
 					// put out the number of done Actions
 					System.out.println("-> " + Makro.getSize() + Constants.DE_MAKRO_DONE_MESSAGES);
 					System.out.println("-----------------------------");
-					// TODO implement write Makro to file by Makro.writeMakroToFile();
+					// implement write Makro to file by Makro.writeMakroToFile();
 					if (Makro.getSize() > 0) {
 						// saves a Makro by increment with one
 						Makro.saveMakro(Makro.getMakroCount() + 1);
 						System.out.println("Count Makros " + Makro.getMakroCount());
+						// refresh the makrofield
+						cmb_Makro.removeAll();
+						refreshMakroCombo();
 					}
 				}
 			}
@@ -123,20 +131,12 @@ public class Menu {
 		menuBar.add(wrapper_filter);
 		// add a dropdown for the Makros
 		// add the Makro filelist
-		JComboBox<String> cmb_Makro = new JComboBox();
+		cmb_Makro = new JComboBox();
 		cmb_Makro.setFont(font);
 		// add the default, empty value
 		cmb_Makro.addItem(" ");
-		String pathStr;
-		// get all files in the makros folder
-		if (Makro.getMakroFileList() != null) {
-			for (File f : Makro.getMakroFileList()) {
-				// get the pathName
-				pathStr = f.getName().toString();
-				// add item to the combobox
-				cmb_Makro.addItem(pathStr);
-			}
-		}
+		// refresh the thing
+		refreshMakroCombo();
 		cmb_Makro.setVisible(true);
 		// run the makro
 		cmb_Makro.addActionListener(new ActionListener() {
@@ -186,5 +186,17 @@ public class Menu {
 			}
 		});
 		menu.add(menuItem);
+	}
+
+	private static void refreshMakroCombo() {
+		// get all files in the makros folder
+		if (Makro.getMakroFileList() != null) {
+			for (File f : Makro.getMakroFileList()) {
+				// get the pathName
+				pathStr = f.getName().toString();
+				// add item to the combobox
+				cmb_Makro.addItem(pathStr);
+			}
+		}
 	}
 }
