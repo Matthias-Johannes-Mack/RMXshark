@@ -16,7 +16,8 @@ public class TutorialController extends Application {
 	private static Window primaryStage;
 	private static Parent root;
 	private static Stage stage;
-	
+	private static Stage finalStage;
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -43,6 +44,11 @@ public class TutorialController extends Application {
 		((Stage) scene.getWindow()).close();
 	}
 
+	/**
+	 * Action for the second slide
+	 * 
+	 * @param event
+	 */
 	public void pressButton(ActionEvent event) {
 		try {
 
@@ -58,9 +64,35 @@ public class TutorialController extends Application {
 	}
 
 	/**
+	 * Action for the second slide
+	 * 
+	 * @param event
+	 */
+	public void pressButtonFinal(ActionEvent event) {
+		try {
+
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("T_3.fxml"));
+			Parent root = (Parent) fxmlLoader.load();
+			finalStage = new Stage();
+			finalStage.setScene(new Scene(root));
+			finalStage.show();
+			exitT2();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * Function that exits the tutorial
 	 */
-	public void exitFinally() {
-		 stage.close();
+	public void exitT2() {
+		stage.close();
+	}
+
+	/**
+	 * Function that exits the tutorial
+	 */
+	public void exitT3() {
+		finalStage.close();
 	}
 }

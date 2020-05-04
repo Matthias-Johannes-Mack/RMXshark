@@ -13,6 +13,7 @@ import console.Console;
 import console.PopUp_IP_Port;
 import javafx.application.Application;
 import newDesign.ConsoleController;
+import tutorial.TutorialController;
 
 /**
  * Class for controlling the whole Tool
@@ -68,9 +69,15 @@ public class Main {
 	private static void command(String[] args) {
 		// create the makro folder, if it does not exists
 		new File(Constants.MAKRO_FOLDERNAME).mkdir();
-//		// run the console
-//		Application.launch(ConsoleController.class, args);
+		// run the console
 		Console.runConsole();
+		 Thread thread = new Thread(){
+			    public void run(){
+			    	Application.launch(TutorialController.class, args);
+			    }
+			  };
+		 thread.start();
+		
 		// show popup before connecting
 		PopUp_IP_Port.showPopup();
 		// wait & notify
@@ -79,6 +86,5 @@ public class Main {
 		}
 		SocketConnector.Connect();
 	}
-
 
 }

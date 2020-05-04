@@ -17,7 +17,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import Utilities.Constants;
 import connection.Sender;
+import javafx.application.Application;
 import makro.Makro;
+import tutorial.TutorialController;
 
 public class Menu {
 	/**
@@ -78,8 +80,12 @@ public class Menu {
 			// show the filter
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO implement emergency button
-				Sender.addMessageQueue(new int[] {} );
+				// run the emergency button
+				Sender.addMessageQueue(new int[] { Constants.RMX_HEAD, 4, 3, 8 });
+				// set the status
+				System.out.println("-----------------------------");
+				System.out.println(Constants.DE_MENU_EMERGENCY);
+				System.out.println("-----------------------------");
 			}
 		});
 		// add the wrapper to the menu
@@ -175,8 +181,19 @@ public class Menu {
 		// Build the second menu
 		menu = new JMenu(Constants.DE_MENU_HELP);
 		menuBar.add(menu);
-		// the submenu
+		// the submenu 1
 		menuItem = new JMenuItem(Constants.DE_SUBMENU_HELP_ITEM_1);
+		// calls the about field
+		menuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// show the tutorial
+
+			}
+		});
+		menu.add(menuItem);
+		// the submenu 2
+		menuItem = new JMenuItem(Constants.DE_SUBMENU_HELP_ITEM_2);
 		// calls the about field
 		menuItem.addActionListener(new ActionListener() {
 			@Override
