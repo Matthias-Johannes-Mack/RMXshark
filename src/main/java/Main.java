@@ -68,14 +68,15 @@ public class Main {
 	private static void command(String[] args) {
 		// create the makro folder, if it does not exists
 		new File(Constants.MAKRO_FOLDERNAME).mkdir();
-		// run the console
-		Application.launch(ConsoleController.class, args);
-//		// show popup before connecting
-//		PopUp_IP_Port.showPopup();
-//		// wait & notify
-//		while (PopUp_IP_Port.isDisplayed()) {
-//
-//		}
+//		// run the console
+//		Application.launch(ConsoleController.class, args);
+		Console.runConsole();
+		// show popup before connecting
+		PopUp_IP_Port.showPopup();
+		// wait & notify
+		while (PopUp_IP_Port.isDisplayed()) {
+
+		}
 		SocketConnector.Connect();
 	}
 

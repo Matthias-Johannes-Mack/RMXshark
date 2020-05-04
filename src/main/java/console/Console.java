@@ -9,6 +9,9 @@ import java.io.*;
 import java.util.*;
 import java.util.List;
 import javax.swing.*;
+
+import org.apache.commons.math3.geometry.spherical.oned.ArcsSet.Split;
+
 import Utilities.ByteUtil;
 import Utilities.Constants;
 import connection.Sender;
@@ -136,12 +139,14 @@ public class Console extends OutputStream {
 		// SystemAdress Value
 		// [0-111] [0-7][Value]
 		String txtFieldTxt = txtField.getText();
+
 		// remove all the whitespaces
 		txtFieldTxt = txtFieldTxt.replaceAll("\\s+", "");
-		System.out.println(txtFieldTxt);
+		
 		// if the txtfieldtest is legit, then move on
 		if (!txtFieldTxt.isEmpty()
-				&& txtFieldTxt.matches("^([1-9]{1}[0-1]{1}[0-1]{1}|[1-9]{1}[0-9]{1}|[1-9]{1}),[0-7]{1},[0-1]{1}$")) {
+				&& txtFieldTxt.matches("^([0-9]{1}[0-1]{1}[0-1]{1}|[0-9]{1}[0-9]{1}|[0-9]{1}),[0-7]{1},[0-1]{1}$")) {
+
 			// print out the text
 			System.out.println("------------------------------");
 			// switch the bus
@@ -170,7 +175,7 @@ public class Console extends OutputStream {
 				// TODO implement the other side
 				System.out.println("Bit bereits gesetzt!");
 			}
-
+			// add the one to the system adress for allocation purposes
 			int[] message = new int[] { Constants.RMX_HEAD, 6, 5, bus, systemAdress, calcVal };
 			System.out.println("Bus: " + getBus());
 			System.out.println("SystemAdress: " + tempArr[0]);
@@ -187,7 +192,48 @@ public class Console extends OutputStream {
 				// add lines to the makro arraylist
 				Makro.addLines(message);
 			}
-		} else
+			// put the byte value out
+		} else if (!txtFieldTxt.isEmpty()
+				&& txtFieldTxt.matches("^([0-9]{1}|[1-9]{1}[0-9]{1}|[1]{1}[0-1]{1}[0-1]{1}),([0-9]{1}|[1-9]{1}[0-9]{1}|[1]{1}[0-9]{1}[0-9]{1}|[2]{1}[0-5]{1}[0-5]{1}|[2]{1}[0-4]{1}[0-9]{1})$")) {
+			// print out the text
+						System.out.println("------------------------------");
+						// switch the bus
+						switch (Menu.comboBox.getSelectedItem().toString()) {
+						case "RMX_0":
+							setBus(1);
+							break;
+						case "RMX_1":
+							setBus(2);
+							break;
+						default:
+							setBus(1);
+						}
+						String[] tempArr = txtFieldTxt.split(",");
+						// create message rmx OPCODE [busId](1-4) [systemAdress](0-111) [bitIndex](0-7)
+						// [bitValue] (0-1) format
+						int bus = getBus();
+						int systemAdress = Integer.parseInt(tempArr[0]);
+						int bitValue = Integer.parseInt(tempArr[1]);
+						// add the one to the system adress for allocation purposes
+						int[] message = new int[] { Constants.RMX_HEAD, 6, 5, bus, systemAdress, bitValue };
+						System.out.println("Bus: " + getBus());
+						System.out.println("SystemAdress: " + tempArr[0]);
+						System.out.println("Value: " + tempArr[1]);
+						System.out.println("------------------------------");
+						// send the things to the sender
+						Sender.addMessageQueue(message);
+						// if the Makro recorder is on
+						if (Makro.isState()) {
+							if (makro == null) {
+								// create a new makro instance
+								makro = new Makro();
+							}
+							// add lines to the makro arraylist
+							Makro.addLines(message);
+						}
+		}
+		
+		else
 
 		{ // put out the error message
 			System.out.println("------------------------------");
