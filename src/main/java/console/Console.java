@@ -145,7 +145,7 @@ public class Console extends OutputStream {
 
 		// if the txtfieldtest is legit, then move on
 		if (!txtFieldTxt.isEmpty()
-				&& txtFieldTxt.matches("^([0-9]{1}[0-1]{1}[0-1]{1}|[0-9]{1}[0-9]{1}|[0-9]{1}),[0-7]{1},[0-1]{1}$")) {
+				&& txtFieldTxt.matches("^([0-9]{1}[0-1]{1}[0-1]{1}|[0-9]{1}[0-9]{1}|[0-9]{1}),[1-8]{1},[0-1]{1}$")) {
 
 			// print out the text
 			System.out.println("------------------------------");
@@ -165,12 +165,13 @@ public class Console extends OutputStream {
 			// [bitValue] (0-1) format
 			int bus = getBus();
 			int systemAdress = Integer.parseInt(tempArr[0]);
-			int bitIndex = Integer.parseInt(tempArr[1]) + 1;
+			int bitIndex = Integer.parseInt(tempArr[1]);
+
 			int bitValue = Integer.parseInt(tempArr[2]);
 			int calcVal = 0;
 			// calculate the actual bit value if bit is not set
 			if (!ByteUtil.bitIsSet(bitValue, bitIndex)) {
-				calcVal = ByteUtil.calcBinaryValueFromInt(bitIndex);
+				calcVal = ByteUtil.calcBinaryValueFromInt(bitIndex - 1);
 			} else {
 				// TODO implement the other side
 				System.out.println("Bit bereits gesetzt!");
@@ -178,8 +179,9 @@ public class Console extends OutputStream {
 			// add the one to the system adress for allocation purposes
 			int[] message = new int[] { Constants.RMX_HEAD, 6, 5, bus, systemAdress, calcVal };
 			System.out.println("Bus: " + getBus());
-			System.out.println("SystemAdress: " + tempArr[0]);
-			System.out.println("Value: " + tempArr[1]);
+			System.out.println("SystemAdress: " + systemAdress);
+			System.out.println("Bit: " + bitIndex);
+			System.out.println("Value: " + bitValue);
 			System.out.println("------------------------------");
 			// send the things to the sender
 			Sender.addMessageQueue(message);
