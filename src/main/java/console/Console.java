@@ -169,15 +169,21 @@ public class Console extends OutputStream {
 
 			int bitValue = Integer.parseInt(tempArr[2]);
 			int calcVal = 0;
+			int[] message;
+
 			// calculate the actual bit value if bit is not set
 			if (!ByteUtil.bitIsSet(bitValue, bitIndex)) {
-				calcVal = ByteUtil.calcBinaryValueFromInt(bitIndex - 1);
+				if (bitValue != 0) {
+					calcVal = ByteUtil.calcBinaryValueFromInt(bitIndex - 1);
+				} else {
+					calcVal = 0;
+				}
 			} else {
-				// TODO implement the other side
+				// sysout for old bit set
 				System.out.println("Bit bereits gesetzt!");
 			}
 			// add the one to the system adress for allocation purposes
-			int[] message = new int[] { Constants.RMX_HEAD, 6, 5, bus, systemAdress, calcVal };
+			message = new int[] { Constants.RMX_HEAD, 6, 5, bus, systemAdress, calcVal };
 			System.out.println("Bus: " + getBus());
 			System.out.println("SystemAdress: " + systemAdress);
 			System.out.println("Bit: " + bitIndex);

@@ -5,11 +5,11 @@ import javax.swing.JLabel;
 
 import Utilities.Constants;
 
-public class Help {
+public class Tutorial {
 	/**
 	 * Method, that shows the Help
 	 */
-	static void showHelp() {
+	static void showTutorial() {
 		JFrame frame = new JFrame(Constants.DE_SUBMENU_HELP_ITEM_1);
 		// hides the form
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
