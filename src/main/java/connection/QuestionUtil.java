@@ -1,7 +1,5 @@
 package connection;
 
-import java.util.Scanner;
-
 import javax.swing.JOptionPane;
 
 import Utilities.Constants;

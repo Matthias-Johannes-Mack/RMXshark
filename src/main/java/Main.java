@@ -40,7 +40,7 @@ public class Main {
 		} catch (FileNotFoundException fno) { // if the file is not found, create it
 			createConfig();
 		} catch (Exception e) {
-			System.out.println("Config could not be readed!");
+			System.out.println("Config could not be read!");
 		}
 
 		return flags;
@@ -73,7 +73,11 @@ public class Main {
 		PopUp_IP_Port.showPopup();
 		// wait & notify
 		while (PopUp_IP_Port.isDisplayed()) {
-
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+			}
 		}
 		SocketConnector.Connect();
 	}

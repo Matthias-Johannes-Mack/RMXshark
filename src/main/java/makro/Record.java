@@ -1,7 +1,6 @@
 package makro;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 

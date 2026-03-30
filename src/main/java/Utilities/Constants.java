@@ -27,7 +27,7 @@ public final class Constants {
 	public static final String DE_WRONG_MESSAGETYPE = "Nachricht nicht valide! Nachricht muss wie folgt aufgebaut sein: [Systemadresse](0-111),[BitIndex](0-7),[Value](0-1)";
 	// console_menu
 	public static final String DE_MENU_NAME = "Debugger";
-	public static final String DE_SUBMENU_ITEM_1 = "Schlie�en";
+	public static final String DE_SUBMENU_ITEM_1 = "Schließen";
 	public static final String DE_MENU_HELP = "Hilfe";
 	public static final String DE_SUBMENU_HELP_ITEM_1 = "About";
 	public static final String DE_MENU_EMERGENCY = "Nothalt";
@@ -63,6 +63,6 @@ public final class Constants {
 	public static final int NUMBER_SYSTEMADRESSES_PER_BUS = 112;
 	public final static int NUMBER_BITS_PER_BUS = NUMBER_SYSTEMADRESSES_PER_BUS * 8; // each systemadress has 8 bits (1
 																						// byte)
-	public final static int NUMBER_OF_BUSSES = 1; // TODO wenn mehrere Busse -> variable erhöhen (für checkall)
+	public final static int NUMBER_OF_BUSSES = 1; // TODO wenn mehrere Busse -> variable erhÃ¶hen (fÃ¼r checkall)
 
 }

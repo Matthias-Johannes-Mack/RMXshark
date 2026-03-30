@@ -60,7 +60,7 @@ public class Console extends OutputStream {
 	 */
 	public Console(JTextArea jtxtarea, int maxLines) {
 		if (maxLines < 1) {
-			throw new IllegalArgumentException("Maximale Zeilen müssen positiv sein! " + maxLines);
+			throw new IllegalArgumentException("Maximale Zeilen mÃ¼ssen positiv sein! " + maxLines);
 		}
 		// set the array to length 1
 		byteArr = new byte[1];

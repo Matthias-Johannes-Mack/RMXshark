@@ -106,7 +106,7 @@ public class SocketConnector {
 				ServerReload.setLastServerResponse(System.currentTimeMillis());
 				// Create a new ServerReload thread
 				ServerReload serverReload = new ServerReload();
-				serverReload.run();
+				new Thread(serverReload).start();
 			} catch (Exception e) {
 				// set the status to disconnected
 				setConStateStr(conState.DISCONNECTED);

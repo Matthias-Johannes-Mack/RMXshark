@@ -23,7 +23,7 @@ class Receiver {
 	}
 
 	/**
-	 * Starts the receiver Thread and ets uop the inputstream
+	 * Starts the receiver Thread and sets up the inputstream
 	 */
 	protected static void startReceiver() {
 		// if the socketConnector is requesting a new thread, do it
