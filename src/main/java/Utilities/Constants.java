@@ -63,6 +63,6 @@ public final class Constants {
 	public static final int NUMBER_SYSTEMADRESSES_PER_BUS = 112;
 	public final static int NUMBER_BITS_PER_BUS = NUMBER_SYSTEMADRESSES_PER_BUS * 8; // each systemadress has 8 bits (1
 																						// byte)
-	public final static int NUMBER_OF_BUSSES = 1; // TODO wenn mehrere Busse -> variable erhÃ¶hen (fÃ¼r checkall)
+	public final static int NUMBER_OF_BUSSES = 1; // TODO wenn mehrere Busse -> variable erhöhen (für checkall)
 
 }
