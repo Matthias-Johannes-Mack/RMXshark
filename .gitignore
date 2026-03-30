@@ -27,3 +27,6 @@ Thumbs.db
 # Application-generated files
 Config.cfg
 Makros/
+gradle/
+gradlew
+gradlew.bat
