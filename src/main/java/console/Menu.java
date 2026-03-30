@@ -16,14 +16,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import Utilities.Constants;
-import connection.Sender;
 import makro.Makro;
 
 public class Menu {
 	/**
 	 * Combobox for the menu
 	 */
-	static JComboBox comboBox;
+	static JComboBox<Constants.Bus> comboBox;
 
 	/**
 	 * Method that creates a menu on the jframe
@@ -48,7 +47,7 @@ public class Menu {
 		jLabel.setFont(font);
 		wrapper.add(jLabel);
 		// add the bus chooser with values from Constants.bus enum
-		comboBox = new JComboBox(Constants.Bus.values());
+		comboBox = new JComboBox<>(Constants.Bus.values());
 		comboBox.setFont(font);
 		comboBox.setVisible(true);
 		comboBox.addActionListener(new ActionListener() {
@@ -123,7 +122,7 @@ public class Menu {
 		menuBar.add(wrapper_filter);
 		// add a dropdown for the Makros
 		// add the Makro filelist
-		JComboBox<String> cmb_Makro = new JComboBox();
+		JComboBox<String> cmb_Makro = new JComboBox<>();
 		cmb_Makro.setFont(font);
 		// add the default, empty value
 		cmb_Makro.addItem(" ");

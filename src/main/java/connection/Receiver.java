@@ -23,7 +23,7 @@ class Receiver {
 	}
 
 	/**
-	 * Starts the receiver Thread and ets uop the inputstream
+	 * Starts the receiver Thread and sets up the inputstream
 	 */
 	protected static void startReceiver() {
 		// if the socketConnector is requesting a new thread, do it
@@ -75,7 +75,7 @@ class Receiver {
 	}
 
 	// ======================================================================
-	// --------------- Implementierung mit Nachrichtenerkennung -------------
+	// --------------- Message recognition implementation -------------------
 
 	/**
 	 * Receives Message from server and returns message without the RMXnet Headbyte
@@ -140,7 +140,7 @@ class Receiver {
 					SocketConnector.nextRequestAllowed.set(true);
 				}
 
-				// else message[1] == 0x01: positive acknowledgment "Bearbeitung läuft"
+				// else message[1] == 0x01: positive acknowledgment "processing in progress"
 
 				break;
 			case 1: // 0x01 - negative acknowledgement
@@ -148,7 +148,7 @@ class Receiver {
 				SocketConnector.nextRequestAllowed.set(true);
 				break;
 			case 3: // 0x03 - initialisation response
-				// TODO Wenn nicht gleiche RMX Version terminieren
+				// TODO terminate if RMX version does not match
 
 				SocketConnector.nextRequestAllowed.set(true);
 				break;

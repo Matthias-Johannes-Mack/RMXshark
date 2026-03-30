@@ -1,7 +1,5 @@
 package Utilities;
 
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.BitSet;
 
 public class ByteUtil {
@@ -42,7 +40,7 @@ public class ByteUtil {
 	public static boolean bitIsSet(int value, int bitIndex) {
 		BitSet bitSet = BitSet.valueOf(new long[] { value });
 
-		return (bitSet.get(bitIndex) == true);
+		return bitSet.get(bitIndex);
 	}
 
 	/**
@@ -108,7 +106,7 @@ public class ByteUtil {
 	}
 
 	/**
-	 * Method that caluclates the bitIndex in binary code
+	 * Method that calculates the bitIndex in binary code
 	 * 
 	 * @author Matthias Mack 3316380
 	 * @param bitIndex

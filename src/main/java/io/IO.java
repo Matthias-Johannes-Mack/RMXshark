@@ -23,7 +23,7 @@ public class IO {
 		} catch (FileNotFoundException fno) { // if the file is not found, create it
 
 		} catch (Exception e) {
-			System.out.println("File could not be readed!");
+			System.out.println("File could not be read!");
 		}
 
 		return flags;

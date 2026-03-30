@@ -1,1 +1,32 @@
-/.gradle/
+# Gradle
+.gradle/
+build/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+
+# Compiled class files
+bin/
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Application-generated files
+Config.cfg
+Makros/
+gradle/
+gradlew
+gradlew.bat

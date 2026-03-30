@@ -122,24 +122,17 @@ public class Makro {
 	 * @throws ClassNotFoundException
 	 */
 	public static void runMakro(String makroName) throws IOException, ClassNotFoundException {
-		// catch the null
 		if (makroName != null) {
-			// create the input stream
-			FileInputStream fis = new FileInputStream(Constants.MAKRO_FOLDERNAME + "/" + makroName);
-			// get teh object
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			// get the class
-			Record record = (Record) ois.readObject();
-			// catch the null
-			if (record != null) {
-				// go through the actions
-				for (int[] arr : record.getRecordLines()) {
-					System.out.println("-> " + Arrays.toString(arr));
-					// add the array
-					Sender.addMessageQueue(arr);
+			try (FileInputStream fis = new FileInputStream(Constants.MAKRO_FOLDERNAME + "/" + makroName);
+					ObjectInputStream ois = new ObjectInputStream(fis)) {
+				Record record = (Record) ois.readObject();
+				if (record != null) {
+					for (int[] arr : record.getRecordLines()) {
+						System.out.println("-> " + Arrays.toString(arr));
+						Sender.addMessageQueue(arr);
+					}
+					System.out.println("--------------------------------------");
 				}
-				// sysout the final line
-				System.out.println("--------------------------------------");
 			}
 		}
 	}
